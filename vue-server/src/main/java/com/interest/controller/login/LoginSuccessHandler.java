@@ -1,14 +1,6 @@
 package com.interest.controller.login;
 
-import java.io.IOException;
-import java.util.Base64;
-import java.util.HashMap;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.interest.controller.authentication.MyAuthenticationToken;
+import com.interest.controller.authentication.AuthenticationTokenExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -17,19 +9,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
-import org.springframework.security.oauth2.provider.TokenRequest;
+import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
 
 
 @Component
 public class LoginSuccessHandler {
 
-	@Resource(name = "myUserDetailsService")
+	@Resource(name = "userDetailsServiceExt")
 	private UserDetailsService userDetailsService;
 
 	@Autowired
@@ -49,7 +44,7 @@ public class LoginSuccessHandler {
 		
 		UserDetails user = getUserDetails(authentication);
 
-		MyAuthenticationToken authenticationTokenResult = new MyAuthenticationToken(user,
+		AuthenticationTokenExt authenticationTokenResult = new AuthenticationTokenExt(user,
 				user.getAuthorities());
 
 		authenticationTokenResult.setDetails(authentication.getDetails());

@@ -9,17 +9,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+
+//springSecurity的主配置文件
 @Configuration
 @EnableWebSecurity
 public class WebsecurityConfig extends WebSecurityConfigurerAdapter {
 
+	//注入数据库验证信息,在访问/oauth/token...的时候首先会通过springSecurity的拦截，进入loadUserByUsername
 	@Autowired
-	private MyUserDetailsService userDetailsService;
-
-	@Autowired
-	public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
-	}
+	private UserDetailsServiceExt userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -29,24 +27,12 @@ public class WebsecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 	}
 
-	// 配置内存模式的用户
-	/*
-	 * @Bean
-	 * 
-	 * @Override protected UserDetailsService userDetailsService(){
-	 * InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-	 * manager.createUser(User.withUsername("test").password("123").authorities(
-	 * "USER").build());
-	 * manager.createUser(User.withUsername("test1").password("123").authorities(
-	 * "USER").build()); return manager; }
-	 */
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		//配置密码验证的的userDetailsService为自定义实现的
+		auth.userDetailsService(userDetailsService);
+	}
 
-	/**
-	 * 需要配置这个支持password模式 support password grant type
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {

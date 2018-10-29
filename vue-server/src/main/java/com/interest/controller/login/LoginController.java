@@ -5,8 +5,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.interest.controller.authentication.MyAuthentication;
-import com.interest.controller.authentication.MyAuthenticationToken;
+import com.interest.controller.authentication.IAuthentication;
+import com.interest.controller.authentication.AuthenticationTokenExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -21,7 +21,7 @@ public class LoginController {
 	private LoginSuccessHandler loginSuccessHandler;
 
 	@Autowired
-	private MyAuthentication gitHubAuthentication;
+	private IAuthentication gitHubAuthentication;
 
 	public static final String WEIXIN_CODE = "code";
 
@@ -42,7 +42,7 @@ public class LoginController {
 
 		String id = gitHubAuthentication.getUserId(code);
 
-		MyAuthenticationToken authRequest = new MyAuthenticationToken(id);
+		AuthenticationTokenExt authRequest = new AuthenticationTokenExt(id);
 
 		authRequest.setDetails(new OAuth2AuthenticationDetails(request));
 

@@ -16,14 +16,15 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+//验证服务器
 @Configuration
 @EnableAuthorizationServer
-public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfigurerAdapterExt extends AuthorizationServerConfigurerAdapter {
 
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-		/*设置签名*/
+		//设置签名对称加密只需要加入key等其他信息（自定义）
 		accessTokenConverter.setSigningKey("smallsnail");
 		return accessTokenConverter;
 	}
@@ -56,13 +57,14 @@ public class MyAuthorizationServerConfigurerAdapter extends AuthorizationServerC
 		endpoints.authenticationManager(authenticationManager).tokenStore(new JwtTokenStore(jwtAccessTokenConverter()));*/
 		/*jwt方式+redis存储token*/
 		endpoints.accessTokenConverter(jwtAccessTokenConverter());
-		endpoints.authenticationManager(authenticationManager).tokenStore(new MyRedisTokenStore(redisConnection));
+		endpoints.authenticationManager(authenticationManager).tokenStore(new RedisTokenStoreExt(redisConnection));
 		/*普通*/
 //		endpoints.authenticationManager(authenticationManager);
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		//配置ClientDetailsServiceConfigurer为jdbc的形式，就是客户端的信息会动oauth_client_details里面读取，还有一种是客户端信息存在内存中clients.inMemory()
 		clients.withClientDetails(clientDetailsService());
 	}
 

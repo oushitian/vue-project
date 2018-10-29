@@ -17,9 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+//自定义的验证类
 @Component
-public class MyUserDetailsService implements UserDetailsService {
-	Logger log = LoggerFactory.getLogger(MyUserDetailsService.class);
+public class UserDetailsServiceExt implements UserDetailsService {
 	
 	@Autowired
     UserDao userDao;
@@ -31,15 +31,8 @@ public class MyUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-		UserEntity userEntity = null;
 
-//		if(MyStringUtil.isInteger(id)) {
-//			userEntity = userDao.getUserEntityById(Integer.valueOf(id));
-//		}else {
-//			userEntity = userDao.getUserEntityByLoginName(id);
-//		}
-
-		userEntity = userDao.getUserEntityByLoginName(id);
+		UserEntity userEntity = userDao.getUserEntityByLoginName(id);
 
 		if(userEntity == null) {
 			throw new UsernameNotFoundException("用户:"+ id + "不存在！");
@@ -50,7 +43,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		if(password == null) {
 			password = DEFAULT_PASSWORD;
 		}
-		/*log.info(password);*/
 
 		Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
 
@@ -60,7 +52,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 
 		User user = new User(id, password, collection);
-		/*return new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN"));*/
 		return user;
 	}
 

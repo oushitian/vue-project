@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class GitHubAuthentication implements MyAuthentication {
+public class GitHubAuthentication implements IAuthentication {
 
     @Autowired
     private UserDao userDao;
