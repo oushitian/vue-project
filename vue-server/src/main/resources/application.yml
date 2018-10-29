@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /interest
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    #本地数据库
+    url: jdbc:mysql://172.28.2.19:3306/numysql?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
+    username: zpzy_test
+    password: 123456
+  redis:
+    #本地redis
+    database: 4
+    host: 127.0.0.1
+    port: 6379
+    password: null
+  resources:
+      static-locations:
+      - classpath:/META-INF/resources/
+      - classpath:/resources/
+      - classpath:/static/
+      - classpath:/public/
+      - file:${interest.properties.paths-properties.image}
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.interest.model
+
+logging:
+  file: D:/interest/file/log/interest.log
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    com.interest: DEBUG
+
+##自定义配置
+interest:
+  properties:
+    paths-properties:
+      image: D:/interest/file/image
+#      domain-name: http://www.lovemtt.com/interest
+      domain-name: http://127.0.0.1:8080/interest
