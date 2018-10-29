@@ -7,14 +7,7 @@
         overflow: hidden;
     }
     .layout-logo{
-        /*width: 100px;*/
-        /*height: 30px;*/
-        /*background: #5b6270;*/
-        /*border-radius: 3px;*/
         float: left;
-        /*position: relative;*/
-        /*top: 15px;
-        left: 20px;*/
     }
     .layout-search{
         height: 30px;
@@ -25,17 +18,11 @@
         
     }
     .layout-nav{
-        /*width: 315px;
-        margin: 0 auto;
-        margin-right: 20px;*/
         height: inherit;
         float: right;
     }
     .layout-footer-center{
         text-align: center;
-    }
-    .demo-spin-icon-load{
-        animation: ani-demo-spin 1s linear infinite;
     }
     @keyframes ani-demo-spin {
         from { transform: rotate(0deg);}
@@ -51,12 +38,11 @@
                     <div style="width: 95%;margin: 0 auto">
                         <div class="layout-logo">
                             <a @click="backHome()">
-                                <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle">
-                                </img>
+                                <img src="../../images/logo.jpg" style="width: 50px;height: 50px;" align="absmiddle"/>
                             </a>
                         </div>
                         <div class="layout-search">
-                            <Input v-model="searchValue" icon="android-search" placeholder="Enter something..." @on-enter="search()"></Input>
+                            <Input v-model="searchValue" icon="android-search" placeholder="Enter something..." @on-enter="search()"/>
                         </div>
                         <div v-if="loginFlag" class="layout-nav">
                             <MenuItem name="1">
@@ -86,6 +72,7 @@
                 </Menu>
             </Header>
             <Content :style="{margin: '80px 0 0 0', background: '#fff'}">
+                <!-- router-view 的使用必须要有子路由，比如index.vue下面关联了了home.vue(在router.js中的配置)-->
                 <router-view></router-view>
             </Content>
             <Footer class="layout-footer-center">
@@ -94,23 +81,23 @@
                         <Icon  style="color: rebeccapurple;" size="40" type="social-github"></Icon>
                     </a>
                 </div>
-                <p>2018-2020 &copy; smallsail-wh</p>
+                <p>2018-2020 &copy; testDemo</p>
             </Footer>
         </Layout>
 
         <Modal :mask-closable="false" :visible.sync="emailModal" :loading = "loading" v-model="emailModal" width="600" title="联系管理员" @on-ok="emailOk('email')" @on-cancel="cancel()">
              <Form ref="email" :rules="emailRule" :model="email"  :label-width="80" >
                 <FormItem label="标题" prop="title">
-                    <Input v-model="email.title" placeholder="请输入标题"></Input>
+                    <Input v-model="email.title" placeholder="请输入标题"/>
                 </FormItem>
                 <FormItem label="email" prop="email">
-                    <Input v-model="email.email" placeholder="请输入email"></Input>
+                    <Input v-model="email.email" placeholder="请输入email"/>
                 </FormItem>
                 <FormItem label="姓名" prop="name">
-                    <Input v-model="email.name" placeholder="请输入姓名"></Input>
+                    <Input v-model="email.name" placeholder="请输入姓名"/>
                 </FormItem>
                 <FormItem label="内容" prop="content">
-                    <Input v-model="email.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+                    <Input v-model="email.content" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."/>
                 </FormItem>
             </Form>
         </Modal>
@@ -120,7 +107,9 @@
     export default {
         data(){
             return {
+                //登录状态
                 loginFlag: false,
+                //控制台状态
                 consoleFlag: false,
                 loading: true,
                 searchValue:'',
@@ -161,15 +150,14 @@
             if (this.$store.getters._isMobile) {
                 this.$router.replace('/mobile');
             }
+            //取到第三方回调的code值，并且判断有值才发起后台请求,请求的格式为http://localhost:8088/?code=6d0d3691b95366f69312
             this.code = this.$route.query.code;
             if(this.code !=null && this.code != ''){
-
-                // this.$Spin.show();
+                //弹出遮罩层
                 this.$Spin.show({
                     render: (h) => {
                         return h('div', [
                             h('Icon', {
-                                // 'class': 'demo-spin-icon-load',
                                 style:{
                                     animation: 'ani-demo-spin 1s linear infinite'
                                 },
@@ -207,8 +195,6 @@
             }else{
                 this.userGet();
             }
-            // this.$router.push("/page/home");
-            
         },
         methods:{
             userGet(){
@@ -256,6 +242,7 @@
                 }else if(e == 4){
                     this.$router.push("/base");
                 }else if(e == 5){
+                    //这里跳转到登录的url,对应router.js中的/login
                     this.$router.push("/login");
                 }
             },

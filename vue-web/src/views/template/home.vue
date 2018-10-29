@@ -7,18 +7,6 @@
                         <img :style="{height:'550px'}" class="images-con" v-bind:src="(item.image)">
                     </router-link>
                 </CarouselItem>
-                <!-- <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/bg1.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view2.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view3.jpg">
-                </CarouselItem>
-                <CarouselItem>
-                    <img :style="{height:'550px'}" class="images-con" src="../../images/view4.jpg">
-                </CarouselItem> -->
             </Carousel>
         </div>
         <div v-if="flage" style="background: #f5f7f9;padding: 24px 50px;color: #495060;font-size: 14px;text-align: center;">
