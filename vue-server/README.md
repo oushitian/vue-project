@@ -93,4 +93,11 @@ spring boot项目,与我的另外一个前端项目[interest-web](https://github
  
  1. 检查数据库是否配置好。（表与表数据在wh-server\src\main\resources\createTable中,用户密码为BCrypt加密，用户admin的密码为admin）
  2. 检查redis是否配置好，redis服务必须开启（检查防火墙是否打开）
+ 
+ 3.该系统第三方登入的整体流程
+    1)调用github的第三方接入获取code
+    2)根据github返回的code，请求https://github.com/login/oauth/access_token获取token，然后在获取用户信息
+    3)判断用户是否存在，在进行数据库的新增或者修改
+    4)成功后调用本系统的token生成规则，返回access_token，
+    5)浏览器调用时，需要带着该token来进行验证
  		

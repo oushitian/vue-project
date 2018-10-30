@@ -32,14 +32,14 @@ public class LoginController {
 	public OAuth2AccessToken loginForGithHub(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code)
 			throws IOException {
 
-		// String code = request.getParameter(WEIXIN_CODE);
-
+		// String code = request.getParameter(WEIXIN_CODE)
 		if (code == null) {
 			code = "";
 		}
 
 		code = code.trim();
 
+		//通过第三方登录获取用户信息
 		String id = gitHubAuthentication.getUserId(code);
 
 		AuthenticationTokenExt authRequest = new AuthenticationTokenExt(id);

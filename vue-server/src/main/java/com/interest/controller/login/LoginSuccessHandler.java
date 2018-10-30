@@ -40,38 +40,42 @@ public class LoginSuccessHandler {
 	public OAuth2AccessToken getAccessToken(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException {
 
-		OAuth2Request auth2Request = getOAuth2Request(request, response, authentication);
-		
+		//通过request拼接成OAuth2Request
+		OAuth2Request auth2Request = getOAuth2Request(request);
+		//获取用户信息
 		UserDetails user = getUserDetails(authentication);
 
+		//根据用户信息和用户权限构建AuthenticationToken
 		AuthenticationTokenExt authenticationTokenResult = new AuthenticationTokenExt(user,
 				user.getAuthorities());
 
 		authenticationTokenResult.setDetails(authentication.getDetails());
 
+		//构建OAuth的授权对象信息
 		OAuth2Authentication auth2Authentication = new OAuth2Authentication(auth2Request, authenticationTokenResult);
 
+		//调用authorizationServerTokenServices创建token
 		OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(auth2Authentication);
 
 		return token;
 	}
 
-	public OAuth2Request getOAuth2Request(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException {
+	public OAuth2Request getOAuth2Request(HttpServletRequest request) throws IOException {
 		String header = request.getHeader("Authorization");
 
 		if (header == null || !header.startsWith("Basic ")) {
 			throw new UnapprovedClientAuthenticationException("请求头中无client信息");
 		}
 
-		String[] tokens = extractAndDecodeHeader(header, request);
+		//从header中获取token的信息  [client,secret]
+		String[] tokens = extractAndDecodeHeader(header);
 		assert tokens.length == 2;
 
 		String clientId = tokens[0];
 		String clientSecret = tokens[1];
 
+		//从数据库中取出存储的ClientDetails并比对
 		ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-
 
 		if (clientDetails == null) {
 			throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在：" + clientId);
@@ -79,7 +83,7 @@ public class LoginSuccessHandler {
 			throw new UnapprovedClientAuthenticationException("clientSecret不匹配：" + clientId);
 		}
 
-		TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(), clientId, clientDetails.getScope(),
+		TokenRequest tokenRequest = new TokenRequest(new HashMap<>(), clientId, clientDetails.getScope(),
 				"custom");
 
 		OAuth2Request auth2Request = tokenRequest.createOAuth2Request(clientDetails);
@@ -88,22 +92,6 @@ public class LoginSuccessHandler {
 	}
 
 	public UserDetails getUserDetails(Authentication authentication) {
-
-		/*
-		 * Collection<SimpleGrantedAuthority> collection = new
-		 * HashSet<SimpleGrantedAuthority>(); collection.add(new
-		 * SimpleGrantedAuthority("ROLE_ADMIN"));
-		 */
-		/*
-		 * Authentication userAuth = new
-		 * UsernamePasswordAuthenticationToken(userEntity.getLoginName(),
-		 * userEntity.getPassword(), collection);
-		 */
-
-		/*
-		 * SmsCodeAuthenticationToken smsCodeAuthenticationToken =
-		 * (SmsCodeAuthenticationToken) authentication;
-		 */
 
 		UserDetails user = userDetailsService.loadUserByUsername((String) authentication.getPrincipal());
 
@@ -114,8 +102,8 @@ public class LoginSuccessHandler {
 		return user;
 	}
 
-	private String[] extractAndDecodeHeader(String header, HttpServletRequest request) throws IOException {
-
+	private String[] extractAndDecodeHeader(String header) throws IOException {
+		//获取basic 之后的数据，前端拼接的结果
 		byte[] base64Token = header.substring(6).getBytes("UTF-8");
 		byte[] decoded;
 		try {
@@ -133,53 +121,5 @@ public class LoginSuccessHandler {
 		}
 		return new String[] { token.substring(0, delim), token.substring(delim + 1) };
 	}
-
-	/*
-	 * @Override public void onAuthenticationSuccess(HttpServletRequest request,
-	 * HttpServletResponse response, Authentication authentication) throws
-	 * IOException, ServletException {
-	 * 
-	 * String header = request.getHeader("Authorization");
-	 * 
-	 * if (header == null || !header.startsWith("Basic ")) { throw new
-	 * UnapprovedClientAuthenticationException("请求头中无client信息"); }
-	 * 
-	 * String[] tokens = extractAndDecodeHeader(header, request); assert
-	 * tokens.length == 2;
-	 * 
-	 * String clientId = tokens[0]; String clientSecret = tokens[1];
-	 * 
-	 * ClientDetails clientDetails =
-	 * clientDetailsService.loadClientByClientId(clientId);
-	 * 
-	 * if (clientDetails == null) { throw new
-	 * UnapprovedClientAuthenticationException("clientId对应的配置信息不存在：" + clientId); }
-	 * else if (clientSecret != null &&
-	 * clientSecret.equals(clientDetails.getClientSecret())) { throw new
-	 * UnapprovedClientAuthenticationException("clientSecret不匹配：" + clientId); }
-	 * 
-	 * TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(),
-	 * clientId, clientDetails.getScope(), "custom");
-	 * 
-	 * OAuth2Request auth2Request = tokenRequest.createOAuth2Request(clientDetails);
-	 * 
-	 * Collection<SimpleGrantedAuthority> collection = new
-	 * HashSet<SimpleGrantedAuthority>(); collection.add(new
-	 * SimpleGrantedAuthority("ROLE_ADMIN"));
-	 * 
-	 * Authentication userAuth = new
-	 * UsernamePasswordAuthenticationToken(userEntity.getLoginName(),
-	 * userEntity.getPassword(), collection);
-	 * 
-	 * 
-	 * OAuth2Authentication auth2Authentication = new
-	 * OAuth2Authentication(auth2Request, authentication);
-	 * 
-	 * OAuth2AccessToken token =
-	 * authorizationServerTokenServices.createAccessToken(auth2Authentication);
-	 * 
-	 * response.setContentType("application/json;charset-UTF-8");
-	 * response.getWriter().write(objectMapper.writeValueAsString(token)); }
-	 */
 
 }
