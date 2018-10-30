@@ -3,6 +3,7 @@ package com.interest.controller.authentication;
 import com.interest.dao.UserDao;
 import com.interest.model.UserEntity;
 import com.interest.controller.login.LoginFailureExcepiton;
+import com.interest.utils.DateUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Date;
 
 
 @Service
@@ -38,7 +41,7 @@ public class GitHubAuthentication implements IAuthentication {
         requestEntity.add("client_id", CLIENT_ID);
         requestEntity.add("client_secret", CLIENT_SECRET);
         requestEntity.add("code", code);
-
+        //根据拿到的code去调用github的token
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(GITHUB_ACCESSS_TOKEN_URL, requestEntity, String.class);
 
         String message = responseEntity.getBody().trim();
@@ -87,6 +90,7 @@ public class GitHubAuthentication implements IAuthentication {
         userEntity.setHeadimg(githubToken.getString("avatar_url"));
         userEntity.setLoginName(githubToken.getString("login"));
         userEntity.setUrl(githubToken.getString("html_url"));
+        userEntity.setCreateTime(DateUtil.currentTimestamp());
         userEntity.setUsertype(0);
 
         userDao.insertUser(userEntity);

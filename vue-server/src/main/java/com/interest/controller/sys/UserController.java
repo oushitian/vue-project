@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.interest.model.PageResult;
 import com.interest.model.UserEntity;
+import com.interest.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,6 +67,7 @@ public class UserController {
 	 */
 	@PostMapping("/users/user")
 	public UserEntity insertUser(@RequestBody UserEntity userEntity) {
+		userEntity.setCreateTime(DateUtil.currentTimestamp());
 		userService.insertUser(userEntity);
 		log.debug("The method is ending");
 		return userEntity;

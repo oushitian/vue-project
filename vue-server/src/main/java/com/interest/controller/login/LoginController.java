@@ -23,9 +23,9 @@ public class LoginController {
 	@Autowired
 	private IAuthentication gitHubAuthentication;
 
-	public static final String WEIXIN_CODE = "code";
-
-	public static final String WEIGUANG_FORM_MOBILE_KEY = "mobile";
+//	public static final String WEIXIN_TOKEN = "helloKitty";
+//
+//	public static final String WEIGUANG_FORM_MOBILE_KEY = "mobile";
 
 
 	@PostMapping("/authentication/github")
