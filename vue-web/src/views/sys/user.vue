@@ -11,7 +11,7 @@
         <div>
             <ul>
                 <li>
-                    <!-- <Button type="primary" icon="plus-round" @click="openNewModal()">新建</Button> -->
+                     <Button type="primary" icon="plus-round" @click="openNewModal()">新建</Button>
                     <Button type="success" icon="wrench" @click="openModifyModal()">修改</Button>
                     <Button type="error" icon="trash-a" @click="del()">删除</Button>
                 </li>
@@ -27,7 +27,51 @@
                 </li>
             </ul>
         </div>
-        <!--修改modal-->  
+        <!--添加modal-->
+        <Modal :mask-closable="false" :visible.sync="newModal" :loading = "loading" v-model="newModal" width="600" title="新建" @on-ok="newOk('userNew')" @on-cancel="cancel()">
+            <Form ref="userNew" :model="userNew" :rules="ruleNew" :label-width="80" >
+                <Row>
+                    <Col span="12">
+                        <Form-item label="登录名:" prop="loginName">
+                            <Input v-model="userNew.loginName" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                    <Col span="12">
+                        <Form-item label="用户名:" prop="name">
+                            <Input v-model="userNew.name" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span="12">
+                        <Form-item label="密码:" prop="password">
+                            <Input v-model="userNew.password" type="password" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                    <Col span="12">
+                        <Form-item label="确认密码:" prop="passwordAgain">
+                            <Input v-model="userNew.passwordAgain" type="password" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span="12">
+                        <Form-item label="邮箱:" prop="email">
+                            <Input v-model="userNew.email" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                    <Col span="12">
+                        <Form-item label="用户类型:">
+                            <Select v-model="userNew.usertype" style="width:200px">
+                                <Option  :value="0">普通用户</Option>
+                                <Option  :value="1">管理员</Option>
+                            </Select>
+                        </Form-item>
+                    </Col>
+                </Row>
+            </Form>
+        </Modal>
+        <!--修改modal-->
         <Modal :mask-closable="false" :visible.sync="modifyModal" v-model="modifyModal" width="600" title="修改" @on-ok="modifyOk()" @on-cancel="cancel()">
              <Form :label-width="80" >
                 <Row>
@@ -44,7 +88,6 @@
                                 <Option  :value="0">普通用户</Option>
                                 <Option  :value="1">管理员</Option>
                             </Select>
-                            <!-- <Input v-model="userModify.email" style="width: 204px"/> -->
                         </Form-item>
                     </Col>
                 </Row>
@@ -99,7 +142,8 @@
 					loginName:null,
 					password:null,
                     passwordAgain:null,
-					email:null
+					email:null,
+                    usertype:null
                 },
                 /*用于修改的user实体*/
                 userModify:{
@@ -141,7 +185,6 @@
                         { type:'email', message: '输入正确的邮箱格式', trigger: 'blur' }
                     ]
                 },
-            	/*表显示字段*/
             	columns1: [
                     {
                         type: 'selection',
@@ -292,6 +335,7 @@
                 this.user.loginName = e.loginName;
                 this.user.password = e.password;
                 this.user.email = e.email;
+                this.user.usertype = e.usertype;
             },
             /*userNew设置*/
             userNewSet(e){

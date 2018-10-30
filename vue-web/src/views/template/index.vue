@@ -205,6 +205,7 @@
                     if(response.data != null && response.data != ''){
                         this.loginFlag = true;
                         this.userSet(response.data);
+                        //管理员用户才有后台的操作权限
                         if(response.data.usertype == 1){
                             this.consoleFlag = true;
                         }
@@ -218,16 +219,6 @@
                 this.user.email = e.email;
                 this.user.headimg = e.headimg;
             },
-            // userModifySet(e){
-            //     this.userModify.loginName = e.loginName;
-            //     this.userModify.password = e.password;
-            //     this.userModify.passwordAgain = e.password;
-            //     this.userModify.name = e.name;
-            //     this.userModify.sex = e.sex;
-            //     this.userModify.age = e.age;
-            //     this.userModify.college = e.college;
-            //     this.userModify.info = e.info;
-            // },
             search(){
                 if(this.searchValue != null && this.searchValue != ''){
                     this.$router.push("/page/home/"+this.searchValue);
