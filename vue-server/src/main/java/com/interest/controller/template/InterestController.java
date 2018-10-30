@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.interest.model.InterestEntity;
-import com.interest.model.PageResult;
+import com.interest.page.PageResult;
 import com.interest.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

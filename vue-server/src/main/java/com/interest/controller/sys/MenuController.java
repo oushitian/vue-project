@@ -5,8 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.interest.model.MenuEntity;
-import com.interest.model.PageResult;
+import com.interest.page.PageResult;
 import com.interest.model.UserEntity;
+import com.interest.utils.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +55,8 @@ public class MenuController {
 	 * @return
 	 */
 	@GetMapping("/menus")
-	public PageResult menusList(int pageSize, int page, String menuId) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(menuService.menusList(pageSize, page * pageSize, menuId));
-		pageResult.setTotalCount(menuService.menusSize(pageSize, page * pageSize, menuId));
-		log.debug("The method is ending");
-		return pageResult;
+	public PageResult menusListByPage( String menuId) {
+		return PageUtil.getPageInfo(menuService.menusListByPage(menuId));
 	}
 
 	/**

@@ -3,9 +3,13 @@ package com.interest.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.interest.dao.MenuDao;
 import com.interest.dao.RoleDao;
 import com.interest.model.MenuEntity;
+import com.interest.page.PageQuery;
+import com.interest.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +52,9 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<MenuEntity> menusList(int pageSize, int start, String menuId) {
-		return menuDao.menusList(pageSize, start, menuId);
+	@PageQuery
+	public List<MenuEntity> menusListByPage(String menuId) {
+		return menuDao.menusList(menuId);
 	}
 
 	@Override

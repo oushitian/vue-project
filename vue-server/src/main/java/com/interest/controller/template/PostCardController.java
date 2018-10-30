@@ -2,7 +2,7 @@ package com.interest.controller.template;
 
 import java.util.List;
 
-import com.interest.model.PageResult;
+import com.interest.page.PageResult;
 import com.interest.model.PostCardEntity;
 import com.interest.model.view.PostCardModel;
 import org.springframework.beans.factory.annotation.Autowired;

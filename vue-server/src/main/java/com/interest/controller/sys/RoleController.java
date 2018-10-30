@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.interest.model.PageResult;
+import com.interest.page.PageResult;
 import com.interest.model.RoleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

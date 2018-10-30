@@ -3,6 +3,7 @@ package com.interest.service;
 import java.util.List;
 
 import com.interest.model.MenuEntity;
+import com.interest.page.PageResult;
 
 public interface MenuService {
 
@@ -22,7 +23,7 @@ public interface MenuService {
 	 * @param i
 	 * @return
 	 */
-	List<MenuEntity> menusList(int pageSize, int start, String menuId);
+	List<MenuEntity> menusListByPage(String menuId);
 
 	/**
 	 * 获取menus列表的总量

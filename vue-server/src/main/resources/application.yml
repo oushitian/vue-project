@@ -11,9 +11,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     #本地数据库
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
-    username: root
-    password: root
+    url: jdbc:mysql://172.28.2.19:3306/numysql?useUnicode=true&characterEncoding=UTF-8&amp;useSSL=false&amp;jdbcCompliantTruncation=false&amp;zeroDateTimeBehavior=convertToNull
+    username: zpzy_test
+    password: 123456
   redis:
     #本地redis
     database: 4

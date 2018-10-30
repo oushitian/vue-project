@@ -20,9 +20,6 @@
 			</if>
 		</where>
 	    <![CDATA[ order by parent_id,id ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
 	</select>
 	<!-- 获取user列表的总量 -->
 	<select id="menusSize" resultType="Integer">  

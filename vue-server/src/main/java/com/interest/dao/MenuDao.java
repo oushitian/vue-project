@@ -27,8 +27,7 @@ public interface MenuDao {
 	 * @param menuId
 	 * @return
 	 */
-	public List<MenuEntity> menusList(@Param("pageSize") int pageSize, @Param("start") int start,
-			@Param("menuId") String menuId);
+	public List<MenuEntity> menusList(@Param("menuId") String menuId);
 
 	/**
 	 * 获取menus列表的总量

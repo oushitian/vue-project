@@ -1,6 +1,6 @@
 package com.interest.controller.template;
 
-import com.interest.model.PageResult;
+import com.interest.page.PageResult;
 import com.interest.model.ReplyCardEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
