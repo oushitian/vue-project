@@ -179,11 +179,14 @@
                     params:{
                         "code": this.code
                     },
+                    // 这将设置一个`Authorization'头，覆盖任何现有的`Authorization'自定义头，使用`headers`设置,
+                    //所以可以看出这个请求中是没有currentUser_token，currentUser_refresh_token的属性的
                     auth: {
                         username: 'client',
                         password: 'secret'
                     }
                 }).then(function (response) {
+                    //成功就把token的值存入localStorage，其他请求要带着access_token去该系统的认证服务器获取资源
                     localStorage.setItem("currentUser_token",response.data.access_token);
                     localStorage.setItem("currentUser_refresh_token",response.data.refresh_token);
                     this.axios.defaults.headers.common['Authorization'] = 'bearer '+ localStorage.getItem("currentUser_token");
