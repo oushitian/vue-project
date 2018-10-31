@@ -6,6 +6,7 @@ import com.interest.dao.PostCardDao;
 import com.interest.dao.ReplyCardDao;
 import com.interest.model.PostCardEntity;
 import com.interest.model.view.PostCardModel;
+import com.interest.page.PageQuery;
 import com.interest.service.PostCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,9 @@ public class PostCardServiceImpl implements PostCardService {
 	private ReplyCardDao replyCardDao;
 
 	@Override
-	public List<PostCardModel> postcardList(String interestid, int pageSize, int start) {
-		return postCardDao.postcardList(interestid,pageSize,start);
-	}
-
-	@Override
-	public Integer postcardSize(String interestid, int pageSize, int start) {
-		return postCardDao.postcardSize(interestid,pageSize,start);
+	@PageQuery
+	public List<PostCardModel> postcardList(String interestide) {
+		return postCardDao.postcardList(interestide);
 	}
 
 	@Override

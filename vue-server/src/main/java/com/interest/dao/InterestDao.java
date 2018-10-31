@@ -17,9 +17,7 @@ public interface InterestDao {
 
 	public void updateEntity(InterestEntity interestEntity);
 
-	public List<InterestEntity> interestList(@Param("pageSize") int pageSize,@Param("start") int start);
-
-	public Integer interestSize();
+	public List<InterestEntity> interestList();
 
 	public void deleteInterests(@Param("groupId") List<String> groupId);
 

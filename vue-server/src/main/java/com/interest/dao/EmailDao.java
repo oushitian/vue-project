@@ -11,9 +11,7 @@ public interface EmailDao {
 
 	public void insertEntity(EmailEntity emailEntity);
 
-	public List<EmailEntity> emailsList(@Param("pageSize") int pageSize, @Param("start") int start);
-
-	public Integer emailsSize(@Param("pageSize") int pageSize, @Param("start") int start);
+	public List<EmailEntity> emailsList();
 
     public void deleteEmails(@Param("groupId") List<String> groupId);
 }

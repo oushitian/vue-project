@@ -5,6 +5,7 @@ import java.util.List;
 import com.interest.page.PageResult;
 import com.interest.model.PostCardEntity;
 import com.interest.model.view.PostCardModel;
+import com.interest.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +23,8 @@ public class PostCardController {
 	private PostCardService postCardService;
 
 	@GetMapping("/public/postcards")
-	public PageResult postcardList(@RequestParam(value="interestid",required=false) String interestid,
-                                   @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(postCardService.postcardList(interestid, pageSize, page * pageSize));
-		pageResult.setTotalCount(postCardService.postcardSize(interestid, pageSize, page * pageSize));
-		return pageResult;
+	public PageResult postcardList(@RequestParam(value="interestid",required=false) String interestide) {
+		return PageUtil.getPageInfo(postCardService.postcardList(interestide));
 	}
 	
 	@GetMapping("/public/postcards/postcard")

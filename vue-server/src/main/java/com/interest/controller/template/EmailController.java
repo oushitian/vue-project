@@ -2,6 +2,7 @@ package com.interest.controller.template;
 
 import com.interest.model.EmailEntity;
 import com.interest.page.PageResult;
+import com.interest.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +18,8 @@ public class EmailController {
 	private EmailService emailService;
 
 	@GetMapping("/emails")
-	public PageResult emailsList(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(emailService.emailsList(pageSize, page * pageSize));
-		pageResult.setTotalCount(emailService.emailsSize(pageSize, page * pageSize));
-		return pageResult;
+	public PageResult emailsList() {
+		return PageUtil.getPageInfo(emailService.emailsList());
 	}
 
 	@PostMapping("/email")

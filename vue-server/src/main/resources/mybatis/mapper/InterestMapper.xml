@@ -15,13 +15,6 @@
 	<select id="interestList" resultMap="interestMap">
 		<![CDATA[select * from interest]]>
 		<![CDATA[ order by sort asc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-
-	<select id="interestSize" resultType="Integer">
-		<![CDATA[select count(*) from interest]]>
 	</select>
 
 	<select id="getInsterest" resultMap="interestMap">

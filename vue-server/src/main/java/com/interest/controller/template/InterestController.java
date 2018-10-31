@@ -7,6 +7,7 @@ import java.util.Map;
 import com.interest.model.InterestEntity;
 import com.interest.page.PageResult;
 import com.interest.utils.DateUtil;
+import com.interest.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,11 +58,8 @@ public class InterestController {
 	}
 
 	@GetMapping("/admin/interests")
-	public PageResult interestList(@RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(interestService.interestList( pageSize, page * pageSize));
-		pageResult.setTotalCount(interestService.interestSize());
-		return pageResult;
+	public PageResult interestList() {
+		return PageUtil.getPageInfo(interestService.interestList());
 	}
 
 	@DeleteMapping("/admin/interests")

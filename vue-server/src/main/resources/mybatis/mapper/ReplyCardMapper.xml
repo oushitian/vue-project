@@ -29,19 +29,6 @@
 				a.postcardid = #{postcardid}
 			</if>
 		</where>
-	    <![CDATA[ order by a.createtime asc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-	
-	<select id="replycardSize" resultType="Integer">  
-	    <![CDATA[select count(*) from reply_card]]>
-		<where>
-			<if test="postcardid != null and postcardid != ''">
-				postcardid = #{postcardid}
-			</if>
-		</where>
 	</select>
 	
 	<insert id="insertEntity" parameterType="ReplyCardEntity">

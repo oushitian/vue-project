@@ -19,13 +19,6 @@
 	<select id="emailsList" resultMap="emailMap">
 	<![CDATA[select * from email]]>
 	    <![CDATA[ order by createtime desc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-	<!-- 获取user列表的总量 -->
-	<select id="emailsSize" resultType="Integer">  
-	    <![CDATA[select count(*) from email]]>
 	</select>
 
 	<delete id="deleteEmails">

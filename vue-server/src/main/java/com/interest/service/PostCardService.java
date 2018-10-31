@@ -7,9 +7,7 @@ import com.interest.model.view.PostCardModel;
 
 public interface PostCardService {
 
-	public List<PostCardModel> postcardList(String interestid, int pageSize, int start);
-
-	public Integer postcardSize(String interestid, int pageSize, int start);
+	public List<PostCardModel> postcardList(String interestid);
 
 	public void insertEntity(PostCardEntity postCardEntity);
 

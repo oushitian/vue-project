@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.interest.dao.EmailDao;
 import com.interest.model.EmailEntity;
+import com.interest.page.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,9 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public List<EmailEntity> emailsList(int pageSize, int start) {
-		return emailDao.emailsList(pageSize,start);
-	}
-
-	@Override
-	public Integer emailsSize(int pageSize, int start) {
-		return emailDao.emailsSize(pageSize,start);
+	@PageQuery
+	public List<EmailEntity> emailsList() {
+		return emailDao.emailsList();
 	}
 
 	@Override

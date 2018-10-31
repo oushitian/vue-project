@@ -17,9 +17,7 @@ public interface InterestService {
 
 	public void updateEntity(InterestEntity interestEntity);
 
-	public List<InterestEntity> interestList(int pageSize, int start);
-
-	public Integer interestSize();
+	public List<InterestEntity> interestList();
 
 	public void deleteInterests(List<String> groupId);
 

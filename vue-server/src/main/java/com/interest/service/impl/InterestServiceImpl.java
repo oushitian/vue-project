@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.interest.dao.InterestDao;
 import com.interest.model.InterestEntity;
+import com.interest.page.PageQuery;
 import com.interest.properties.MyProperties;
 import com.interest.utils.DateUtil;
 import com.interest.utils.ImageUtil;
@@ -64,13 +65,9 @@ public class InterestServiceImpl implements InterestService {
 	}
 
 	@Override
-	public List<InterestEntity> interestList(int pageSize, int start) {
-		return interestDao.interestList(pageSize,start);
-	}
-
-	@Override
-	public Integer interestSize() {
-		return interestDao.interestSize();
+	@PageQuery
+	public List<InterestEntity> interestList() {
+		return interestDao.interestList();
 	}
 
 	@Override

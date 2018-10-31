@@ -2,6 +2,7 @@ package com.interest.controller.template;
 
 import com.interest.page.PageResult;
 import com.interest.model.ReplyCardEntity;
+import com.interest.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,19 +19,10 @@ public class ReplyCardController {
 	private ReplyCardService replyCardService;
 
 	@GetMapping("/public/replycards")
-	public PageResult replycardList(@RequestParam("postcardid") int postcardid,
-                                    @RequestParam("pageSize") int pageSize, @RequestParam("page") int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(replyCardService.replycardList(postcardid, pageSize, page * pageSize));
-		pageResult.setTotalCount(replyCardService.replycardSize(postcardid, pageSize, page * pageSize));
-		return pageResult;
+	public PageResult replycardList(@RequestParam("postcardid") int postcardid) {
+		return PageUtil.getPageInfo(replyCardService.replycardList(postcardid));
 	}
-	
-//	@GetMapping("/replycards/replycard")
-//	public ReplyCardEntity preplyardGet(@RequestParam("id") int id) {
-//		return replyCardService.getReplycard(id);
-//	}
-//	
+
 	@PostMapping("/replycards/replycard")
 	public ReplyCardEntity insertEntity(@RequestBody ReplyCardEntity replyCardEntity ) {
 		replyCardService.insertEntity(replyCardEntity);

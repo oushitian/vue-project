@@ -10,11 +10,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PostCardDao {
 
-	public List<PostCardModel> postcardList(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-											@Param("start") int start);
-
-	public Integer postcardSize(@Param("interestid") String interestid, @Param("pageSize") int pageSize,
-			@Param("start") int start);
+	public List<PostCardModel> postcardList(@Param("interestid") String interestid);
 
 	public void insertEntity(PostCardEntity postCardEntity);
 

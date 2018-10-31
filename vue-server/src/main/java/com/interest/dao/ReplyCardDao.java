@@ -22,8 +22,7 @@ public interface ReplyCardDao {
 
 	// public PostCardEntity getPostcard(@Param("id") int id);
 
-	public List<ReplyCardModel> replycardList(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
-											  @Param("start") int start);
+	public List<ReplyCardModel> replycardList(@Param("postcardid") int postcardid);
 
 	public Integer replycardSize(@Param("postcardid") int postcardid, @Param("pageSize") int pageSize,
 			@Param("start") int start);
