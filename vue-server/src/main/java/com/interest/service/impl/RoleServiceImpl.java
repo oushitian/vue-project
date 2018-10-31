@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.interest.dao.RoleDao;
 import com.interest.model.RoleEntity;
+import com.interest.page.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,9 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
-	public List<RoleEntity> rolesList(int pageSize, int start) {
-		return roleDao.rolesList(pageSize, start);
-	}
-
-	@Override
-	public Integer rolesSize(int pageSize, int start) {
-		return roleDao.rolesSize(pageSize, start);
+	@PageQuery
+	public List<RoleEntity> rolesList() {
+		return roleDao.rolesList();
 	}
 
 	@Override

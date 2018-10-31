@@ -21,18 +21,6 @@
 			</if>
 		</where>
 	    <![CDATA[ order by id desc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
-	</select>
-	<!-- 获取user列表的总量 -->
-	<select id="usersSize" resultType="Integer">  
-	    <![CDATA[select count(*) from sys_user]]>
-		<where>
-			<if test="loginName != null and loginName != ''">
-				login_name = #{loginName}
-			</if>
-		</where>
 	</select>
 	<insert id="insert">
 		<if test="userEntity != null">

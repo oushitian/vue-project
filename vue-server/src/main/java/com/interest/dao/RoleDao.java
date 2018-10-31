@@ -12,12 +12,9 @@ import com.interest.model.RoleEntity;
 public interface RoleDao {
 	/**
 	 * 获取role列表
-	 * @param loginName
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
-	public ArrayList<RoleEntity> rolesList(@Param("pageSize") int pageSize,@Param("start") int start);
+	public ArrayList<RoleEntity> rolesList();
 
 	/**
 	 * 获取role列表的总量

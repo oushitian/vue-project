@@ -8,21 +8,10 @@ public interface RoleService {
 
 	/**
 	 * 获取role列表
-	 * 
-	 * @param pageSize
-	 * @param page
+	 *
 	 * @return
 	 */
-	public List<RoleEntity> rolesList(int pageSize, int start);
-
-	/**
-	 * 获取role列表的总量
-	 * 
-	 * @param pageSize
-	 * @param page
-	 * @return
-	 */
-	public Integer rolesSize(int pageSize, int start);
+	public List<RoleEntity> rolesList();
 
 	/**
 	 * 新建角色信息

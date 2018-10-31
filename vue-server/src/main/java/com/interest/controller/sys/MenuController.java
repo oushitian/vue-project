@@ -49,9 +49,6 @@ public class MenuController {
 
 	/**
 	 * 获取menus表数据
-	 * 
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
 	@GetMapping("/menus")

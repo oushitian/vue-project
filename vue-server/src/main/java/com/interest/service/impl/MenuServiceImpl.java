@@ -58,11 +58,6 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public Integer menusSize(int pageSize, int start, String menuId) {
-		return menuDao.menusSize(pageSize, start, menuId);
-	}
-
-	@Override
 	public void insertMenu(MenuEntity menuEntity) {
 		menuDao.insertMenu(menuEntity);
 	}

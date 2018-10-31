@@ -19,20 +19,9 @@ public interface UserService {
 	/**
 	 * 获取user列表
 	 * @param loginName
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
-	public List<UserEntity> usersList(String loginName, int pageSize, int start);
-
-	/**
-	 * 获取user列表的总量
-	 * @param loginName
-	 * @param pageSize
-	 * @param page
-	 * @return
-	 */
-	public Integer usersSize(String loginName, int pageSize, int start);
+	public List<UserEntity> usersList(String loginName);
 
 	/**
 	 * 新建用户信息

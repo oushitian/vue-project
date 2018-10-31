@@ -21,9 +21,6 @@ public interface MenuDao {
 
 	/**
 	 * 获取menus列表
-	 * 
-	 * @param pageSize
-	 * @param start
 	 * @param menuId
 	 * @return
 	 */

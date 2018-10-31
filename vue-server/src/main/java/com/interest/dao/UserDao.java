@@ -27,20 +27,9 @@ public interface UserDao {
 	/**
 	 * 获取user列表
 	 * @param loginName
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
-	public ArrayList<UserEntity> usersList(@Param("loginName")String loginName,@Param("pageSize") int pageSize,@Param("start") int start);
-
-	/**
-	 * 获取user列表的总量
-	 * @param loginName
-	 * @param pageSize
-	 * @param page
-	 * @return
-	 */
-	public Integer usersSize(@Param("loginName")String loginName,@Param("pageSize") int pageSize,@Param("start") int start);
+	public ArrayList<UserEntity> usersList(@Param("loginName")String loginName);
 
 	/**
 	 * 新建用户信息
@@ -61,6 +50,4 @@ public interface UserDao {
 	public void deleteUsers(@Param("groupId") List<String> groupId);
 
 	public void updateUsertype(@Param("loginName")String loginName,@Param("usertype") Integer usertype);
-
-    public UserEntity getUserEntityById(@Param("id")Integer id);
 }

@@ -7,6 +7,7 @@ import com.interest.dao.RelationDao;
 import com.interest.dao.UserDao;
 import com.interest.model.RelationEntity;
 import com.interest.model.UserEntity;
+import com.interest.page.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,13 +39,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserEntity> usersList(String loginName, int pageSize, int start) {
-		return userDao.usersList( loginName,  pageSize,  start);
-	}
-
-	@Override
-	public Integer usersSize(String loginName, int pageSize, int start) {
-		return userDao.usersSize(loginName, pageSize, start);
+	@PageQuery
+	public List<UserEntity> usersList(String loginName) {
+		return userDao.usersList( loginName);
 	}
 
 	@Override

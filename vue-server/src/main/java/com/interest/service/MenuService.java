@@ -26,17 +26,6 @@ public interface MenuService {
 	List<MenuEntity> menusListByPage(String menuId);
 
 	/**
-	 * 获取menus列表的总量
-	 * 
-	 * @param loginName
-	 * @param pageSize
-	 * @param menuId
-	 * @param i
-	 * @return
-	 */
-	Integer menusSize(int pageSize, int start, String menuId);
-
-	/**
 	 * 新建菜单信息
 	 * 
 	 * @param menuEntity

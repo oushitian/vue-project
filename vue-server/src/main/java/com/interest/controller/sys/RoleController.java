@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.interest.page.PageResult;
 import com.interest.model.RoleEntity;
+import com.interest.utils.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,18 +29,11 @@ public class RoleController {
 
 	/**
 	 * 获取role表数据
-	 * 
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
 	@GetMapping("/roles")
-	public PageResult rolesList(String loginName, int pageSize, int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(roleService.rolesList(pageSize, page * pageSize));
-		pageResult.setTotalCount(roleService.rolesSize(pageSize, page * pageSize));
-		log.debug("The method is ending");
-		return pageResult;
+	public PageResult rolesList() {
+		return PageUtil.getPageInfo(roleService.rolesList());
 	}
 
 	/**

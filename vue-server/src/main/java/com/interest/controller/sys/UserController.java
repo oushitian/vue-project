@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import com.interest.page.PageResult;
 import com.interest.model.UserEntity;
 import com.interest.utils.DateUtil;
+import com.interest.utils.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,17 +47,11 @@ public class UserController {
 	 * 获取user表数据
 	 * 
 	 * @param loginName
-	 * @param pageSize
-	 * @param page
 	 * @return
 	 */
 	@GetMapping("/users")
-	public PageResult usersList(String loginName, int pageSize, int page) {
-		PageResult pageResult = new PageResult();
-		pageResult.setData(userService.usersList(loginName, pageSize, page * pageSize));
-		pageResult.setTotalCount(userService.usersSize(loginName, pageSize, page * pageSize));
-		log.debug("The method is ending");
-		return pageResult;
+	public PageResult usersList(String loginName) {
+		return PageUtil.getPageInfo(userService.usersList(loginName));
 	}
 
 	/**

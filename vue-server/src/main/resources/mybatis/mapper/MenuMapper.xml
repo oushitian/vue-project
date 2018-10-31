@@ -21,15 +21,6 @@
 		</where>
 	    <![CDATA[ order by parent_id,id ]]>
 	</select>
-	<!-- 获取user列表的总量 -->
-	<select id="menusSize" resultType="Integer">  
-	    <![CDATA[select count(*) from sys_menu]]>
-	    <where>
-			<if test="menuId != null and menuId != ''">
-				id = #{menuId} or parent_id = #{menuId}
-			</if>
-		</where>
-	</select>
 	<!-- 新建用户信息 -->
 	<insert id="insertMenu">
 		insert into sys_menu
