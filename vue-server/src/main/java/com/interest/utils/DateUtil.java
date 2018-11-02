@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class DateUtil {
 
+	public static String DATE_MIN_SEN = "yyyy-MM-dd HH:mm:ss";
+
 	/**
 	 * 当前系统时间戳
 	 * @return
@@ -22,6 +24,12 @@ public class DateUtil {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		
+		return format.format(new Date());
+	}
+
+	public static String currentTimesFormat(String formatPath){
+		SimpleDateFormat format = new SimpleDateFormat(formatPath);
+
 		return format.format(new Date());
 	}
 	
