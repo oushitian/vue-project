@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.sf.SfProductMapper" >
+  <resultMap id="BaseResultMap" type="com.interest.model.sf.SfProduct" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="purchase_name" property="purchaseName" jdbcType="VARCHAR" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="bar_code" property="barCode" jdbcType="VARCHAR" />
+    <result column="category_one" property="categoryOne" jdbcType="INTEGER" />
+    <result column="category_one_name" property="categoryOneName" jdbcType="VARCHAR" />
+    <result column="category_one_code" property="categoryOneCode" jdbcType="VARCHAR" />
+    <result column="category_two" property="categoryTwo" jdbcType="INTEGER" />
+    <result column="category_two_name" property="categoryTwoName" jdbcType="VARCHAR" />
+    <result column="category_two_code" property="categoryTwoCode" jdbcType="VARCHAR" />
+    <result column="category_three" property="categoryThree" jdbcType="INTEGER" />
+    <result column="category_three_name" property="categoryThreeName" jdbcType="VARCHAR" />
+    <result column="category_three_code" property="categoryThreeCode" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_number" property="parentNumber" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="brand_english_name" property="brandEnglishName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="shelf_life" property="shelfLife" jdbcType="INTEGER" />
+    <result column="shelve_date" property="shelveDate" jdbcType="TIMESTAMP" />
+    <result column="product_area" property="productArea" jdbcType="INTEGER" />
+    <result column="country" property="country" jdbcType="INTEGER" />
+    <result column="sale_unit" property="saleUnit" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="box_specification" property="boxSpecification" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="price_type" property="priceType" jdbcType="INTEGER" />
+    <result column="product_type" property="productType" jdbcType="INTEGER" />
+    <result column="business_model" property="businessModel" jdbcType="INTEGER" />
+    <result column="is_sell" property="isSell" jdbcType="VARCHAR" />
+    <result column="merchant_number" property="merchantNumber" jdbcType="INTEGER" />
+    <result column="cost_price" property="costPrice" jdbcType="INTEGER" />
+    <result column="sfshipping" property="sfshipping" jdbcType="VARCHAR" />
+    <result column="sfairline" property="sfairline" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="INTEGER" />
+    <result column="in_tax" property="inTax" jdbcType="INTEGER" />
+    <result column="out_tax" property="outTax" jdbcType="INTEGER" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, number, name, english_name, purchase_name, system_name, bar_code, category_one, 
+    category_one_name, category_one_code, category_two, category_two_name, category_two_code, 
+    category_three, category_three_name, category_three_code, parent_id, parent_number, 
+    brand_id, brand_name, brand_english_name, price, shelf_life, shelve_date, product_area, 
+    country, sale_unit, specification, weight, model, status, is_show, box_specification, 
+    audit_time, price_type, product_type, business_model, is_sell, merchant_number, cost_price, 
+    sfshipping, sfairline, tax, in_tax, out_tax, filename
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sf_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sf_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.interest.model.sf.SfProduct" >
+    insert into sf_product (product_id, number, name, 
+      english_name, purchase_name, system_name, 
+      bar_code, category_one, category_one_name, 
+      category_one_code, category_two, category_two_name, 
+      category_two_code, category_three, category_three_name, 
+      category_three_code, parent_id, parent_number, 
+      brand_id, brand_name, brand_english_name, 
+      price, shelf_life, shelve_date, 
+      product_area, country, sale_unit, 
+      specification, weight, model, 
+      status, is_show, box_specification, 
+      audit_time, price_type, product_type, 
+      business_model, is_sell, merchant_number, 
+      cost_price, sfshipping, sfairline, 
+      tax, in_tax, out_tax, 
+      filename)
+    values (#{productId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{englishName,jdbcType=VARCHAR}, #{purchaseName,jdbcType=VARCHAR}, #{systemName,jdbcType=VARCHAR}, 
+      #{barCode,jdbcType=VARCHAR}, #{categoryOne,jdbcType=INTEGER}, #{categoryOneName,jdbcType=VARCHAR}, 
+      #{categoryOneCode,jdbcType=VARCHAR}, #{categoryTwo,jdbcType=INTEGER}, #{categoryTwoName,jdbcType=VARCHAR}, 
+      #{categoryTwoCode,jdbcType=VARCHAR}, #{categoryThree,jdbcType=INTEGER}, #{categoryThreeName,jdbcType=VARCHAR}, 
+      #{categoryThreeCode,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{parentNumber,jdbcType=INTEGER}, 
+      #{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{brandEnglishName,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{shelfLife,jdbcType=INTEGER}, #{shelveDate,jdbcType=TIMESTAMP}, 
+      #{productArea,jdbcType=INTEGER}, #{country,jdbcType=INTEGER}, #{saleUnit,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{isShow,jdbcType=INTEGER}, #{boxSpecification,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{priceType,jdbcType=INTEGER}, #{productType,jdbcType=INTEGER}, 
+      #{businessModel,jdbcType=INTEGER}, #{isSell,jdbcType=VARCHAR}, #{merchantNumber,jdbcType=INTEGER}, 
+      #{costPrice,jdbcType=INTEGER}, #{sfshipping,jdbcType=VARCHAR}, #{sfairline,jdbcType=VARCHAR}, 
+      #{tax,jdbcType=INTEGER}, #{inTax,jdbcType=INTEGER}, #{outTax,jdbcType=INTEGER}, 
+      #{filename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.interest.model.sf.SfProduct" >
+    insert into sf_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="englishName != null" >
+        english_name,
+      </if>
+      <if test="purchaseName != null" >
+        purchase_name,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="barCode != null" >
+        bar_code,
+      </if>
+      <if test="categoryOne != null" >
+        category_one,
+      </if>
+      <if test="categoryOneName != null" >
+        category_one_name,
+      </if>
+      <if test="categoryOneCode != null" >
+        category_one_code,
+      </if>
+      <if test="categoryTwo != null" >
+        category_two,
+      </if>
+      <if test="categoryTwoName != null" >
+        category_two_name,
+      </if>
+      <if test="categoryTwoCode != null" >
+        category_two_code,
+      </if>
+      <if test="categoryThree != null" >
+        category_three,
+      </if>
+      <if test="categoryThreeName != null" >
+        category_three_name,
+      </if>
+      <if test="categoryThreeCode != null" >
+        category_three_code,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentNumber != null" >
+        parent_number,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="brandEnglishName != null" >
+        brand_english_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="shelfLife != null" >
+        shelf_life,
+      </if>
+      <if test="shelveDate != null" >
+        shelve_date,
+      </if>
+      <if test="productArea != null" >
+        product_area,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="saleUnit != null" >
+        sale_unit,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="boxSpecification != null" >
+        box_specification,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="priceType != null" >
+        price_type,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="businessModel != null" >
+        business_model,
+      </if>
+      <if test="isSell != null" >
+        is_sell,
+      </if>
+      <if test="merchantNumber != null" >
+        merchant_number,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="sfshipping != null" >
+        sfshipping,
+      </if>
+      <if test="sfairline != null" >
+        sfairline,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="inTax != null" >
+        in_tax,
+      </if>
+      <if test="outTax != null" >
+        out_tax,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseName != null" >
+        #{purchaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOne != null" >
+        #{categoryOne,jdbcType=INTEGER},
+      </if>
+      <if test="categoryOneName != null" >
+        #{categoryOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneCode != null" >
+        #{categoryOneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwo != null" >
+        #{categoryTwo,jdbcType=INTEGER},
+      </if>
+      <if test="categoryTwoName != null" >
+        #{categoryTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoCode != null" >
+        #{categoryTwoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryThree != null" >
+        #{categoryThree,jdbcType=INTEGER},
+      </if>
+      <if test="categoryThreeName != null" >
+        #{categoryThreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryThreeCode != null" >
+        #{categoryThreeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentNumber != null" >
+        #{parentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandEnglishName != null" >
+        #{brandEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="shelfLife != null" >
+        #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="shelveDate != null" >
+        #{shelveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productArea != null" >
+        #{productArea,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="saleUnit != null" >
+        #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="boxSpecification != null" >
+        #{boxSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="businessModel != null" >
+        #{businessModel,jdbcType=INTEGER},
+      </if>
+      <if test="isSell != null" >
+        #{isSell,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNumber != null" >
+        #{merchantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sfshipping != null" >
+        #{sfshipping,jdbcType=VARCHAR},
+      </if>
+      <if test="sfairline != null" >
+        #{sfairline,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=INTEGER},
+      </if>
+      <if test="inTax != null" >
+        #{inTax,jdbcType=INTEGER},
+      </if>
+      <if test="outTax != null" >
+        #{outTax,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.interest.model.sf.SfProduct" >
+    update sf_product
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        english_name = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseName != null" >
+        purchase_name = #{purchaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOne != null" >
+        category_one = #{categoryOne,jdbcType=INTEGER},
+      </if>
+      <if test="categoryOneName != null" >
+        category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneCode != null" >
+        category_one_code = #{categoryOneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwo != null" >
+        category_two = #{categoryTwo,jdbcType=INTEGER},
+      </if>
+      <if test="categoryTwoName != null" >
+        category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoCode != null" >
+        category_two_code = #{categoryTwoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryThree != null" >
+        category_three = #{categoryThree,jdbcType=INTEGER},
+      </if>
+      <if test="categoryThreeName != null" >
+        category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryThreeCode != null" >
+        category_three_code = #{categoryThreeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentNumber != null" >
+        parent_number = #{parentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandEnglishName != null" >
+        brand_english_name = #{brandEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="shelfLife != null" >
+        shelf_life = #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="shelveDate != null" >
+        shelve_date = #{shelveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productArea != null" >
+        product_area = #{productArea,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="saleUnit != null" >
+        sale_unit = #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="boxSpecification != null" >
+        box_specification = #{boxSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceType != null" >
+        price_type = #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="businessModel != null" >
+        business_model = #{businessModel,jdbcType=INTEGER},
+      </if>
+      <if test="isSell != null" >
+        is_sell = #{isSell,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantNumber != null" >
+        merchant_number = #{merchantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sfshipping != null" >
+        sfshipping = #{sfshipping,jdbcType=VARCHAR},
+      </if>
+      <if test="sfairline != null" >
+        sfairline = #{sfairline,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=INTEGER},
+      </if>
+      <if test="inTax != null" >
+        in_tax = #{inTax,jdbcType=INTEGER},
+      </if>
+      <if test="outTax != null" >
+        out_tax = #{outTax,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.interest.model.sf.SfProduct" >
+    update sf_product
+    set number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      purchase_name = #{purchaseName,jdbcType=VARCHAR},
+      system_name = #{systemName,jdbcType=VARCHAR},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      category_one = #{categoryOne,jdbcType=INTEGER},
+      category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      category_one_code = #{categoryOneCode,jdbcType=VARCHAR},
+      category_two = #{categoryTwo,jdbcType=INTEGER},
+      category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      category_two_code = #{categoryTwoCode,jdbcType=VARCHAR},
+      category_three = #{categoryThree,jdbcType=INTEGER},
+      category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
+      category_three_code = #{categoryThreeCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      parent_number = #{parentNumber,jdbcType=INTEGER},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      brand_english_name = #{brandEnglishName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      shelf_life = #{shelfLife,jdbcType=INTEGER},
+      shelve_date = #{shelveDate,jdbcType=TIMESTAMP},
+      product_area = #{productArea,jdbcType=INTEGER},
+      country = #{country,jdbcType=INTEGER},
+      sale_unit = #{saleUnit,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=INTEGER},
+      box_specification = #{boxSpecification,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      price_type = #{priceType,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=INTEGER},
+      business_model = #{businessModel,jdbcType=INTEGER},
+      is_sell = #{isSell,jdbcType=VARCHAR},
+      merchant_number = #{merchantNumber,jdbcType=INTEGER},
+      cost_price = #{costPrice,jdbcType=INTEGER},
+      sfshipping = #{sfshipping,jdbcType=VARCHAR},
+      sfairline = #{sfairline,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=INTEGER},
+      in_tax = #{inTax,jdbcType=INTEGER},
+      out_tax = #{outTax,jdbcType=INTEGER},
+      filename = #{filename,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>
