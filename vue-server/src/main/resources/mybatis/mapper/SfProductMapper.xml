@@ -575,4 +575,16 @@
       filename = #{filename,jdbcType=VARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sf_product
+  </select>
+
+  <select id="countTotal" resultType="INTEGER">
+    select
+    count(1)
+    from sf_product
+  </select>
 </mapper>

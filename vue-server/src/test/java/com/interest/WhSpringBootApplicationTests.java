@@ -3,12 +3,15 @@ package com.interest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.interest.dao.sf.SfProductDetailsMapper;
 import com.interest.dao.sf.SfProductMapper;
 import com.interest.dao.sf.SfRegionMapper;
 import com.interest.domain.PageDO;
 import com.interest.domain.mall.MallDO;
 import com.interest.domain.mall.Product;
+import com.interest.domain.order.OrderCancelDO;
 import com.interest.domain.order.OrderDO;
 import com.interest.domain.order.OrderProduct;
 import com.interest.domain.stock.StockDO;
@@ -26,7 +29,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -131,23 +133,30 @@ public class WhSpringBootApplicationTests {
 	}
 
 	//获取商品详情
-	public void getGoodsDetail(String goodsNumber){
-		String url = "https://testapi.sfbest.com/open-api/open/product/queryProductInfoDetails?app_key="+clientId+"&access_token="+accessToken;
-		List<String> list = new ArrayList<>();
-		list.add(goodsNumber);
-		String result = OkHttpUtil.postJsonParams(url,JSON.toJSONString(list));
-//		log.info(result);
-		JSONObject jsonObjects = JSON.parseObject(result);
-		JSONArray jsonArray = jsonObjects.getJSONObject("data").getJSONArray("productInfoDetails");
-		for (Object obj : jsonArray) {
-			JSONObject o = (JSONObject) obj;
-			SfProductDetails sfProductDetails = JSON.parseObject(o.toJSONString(),SfProductDetails.class);
-            SfProductDetails hasExist = sfProductDetailsMapper.selectByPrimaryKey(sfProductDetails.getId());
-            if (hasExist!=null){
-                continue;
+    @Test
+	public void getGoodsDetail(){
+	    Integer total = sfProductMapper.countTotal();
+	    for (int i = 0 ; i < total/10+1 ; i ++) {
+            PageHelper.startPage(i + 1, 10);
+            List<SfProduct> lists = sfProductMapper.findAll();
+            Set<String> list = new HashSet<>();
+            for (SfProduct sfProduct : lists) {
+                list.add(sfProduct.getNumber());
             }
-            sfProductDetailsMapper.insertSelective(sfProductDetails);
-		}
+            String url = "https://testapi.sfbest.com/open-api/open/product/queryProductInfoDetails?app_key=" + clientId + "&access_token=" + accessToken;
+            String result = OkHttpUtil.postJsonParams(url, JSON.toJSONString(list));
+            JSONObject jsonObjects = JSON.parseObject(result);
+            JSONArray jsonArray = jsonObjects.getJSONObject("data").getJSONArray("productInfoDetails");
+            for (Object obj : jsonArray) {
+                JSONObject o = (JSONObject) obj;
+                SfProductDetails sfProductDetails = JSON.parseObject(o.toJSONString(), SfProductDetails.class);
+                SfProductDetails hasExist = sfProductDetailsMapper.selectByPrimaryKey(sfProductDetails.getId());
+                if (hasExist != null) {
+                    continue;
+                }
+                sfProductDetailsMapper.insertSelective(sfProductDetails);
+            }
+        }
 	}
 
 
@@ -248,7 +257,7 @@ public class WhSpringBootApplicationTests {
         orderDO.setAddress("浙江宁波");
         orderDO.setConsignee("a");
         orderDO.setMobile("13116665898");
-        orderDO.setShippingFee(700);        //运费
+        orderDO.setShippingFee(700);        //运费 （可以自己填写  也可以后期和顺丰结算）
         orderDO.setMoneyPaid(13000);        //已支付金额
         List<OrderProduct> list = new ArrayList<>();
         OrderProduct orderProduct = new OrderProduct();
@@ -260,6 +269,32 @@ public class WhSpringBootApplicationTests {
         orderDO.setOrderProducts(list);
         System.err.println(JSON.toJSONString(orderDO));
         String result = OkHttpUtil.postJsonParams(url,JSON.toJSONString(orderDO));
+        log.info(result);
+    }
+
+    @Test
+    //查询订单的接口
+    public void queryOrder(){
+        String url = "https://testapi.sfbest.com/open-api/open/order/getOrderList?app_key="+clientId+"&access_token="+accessToken;
+        PageDO pageDO = new PageDO();
+        pageDO.setPage("1");
+        pageDO.setPageSize("10");
+        String result = OkHttpUtil.postJsonParams(url, JSON.toJSONString(pageDO));
+        log.info(result);
+    }
+
+    @Test
+    //取消订单的接口
+    public void cancelOrder(){
+        String url = "https://testapi.sfbest.com/open-api/open/order/cancelOrder?app_key="+clientId+"&access_token="+accessToken;
+        OrderCancelDO orderCancelDO = new OrderCancelDO();
+        orderCancelDO.setCancelType(6);     //6代表开放平台
+        orderCancelDO.setFrontShow(1);      //展示日志
+        orderCancelDO.setNotes("取消订单");
+        orderCancelDO.setOperator("fd");
+        orderCancelDO.setOrderSn("11");     //订单编号
+        orderCancelDO.setReturnDirection(1);//哪里来哪里去
+        String result = OkHttpUtil.postJsonParams(url, JSON.toJSONString(orderCancelDO));
         log.info(result);
     }
 }

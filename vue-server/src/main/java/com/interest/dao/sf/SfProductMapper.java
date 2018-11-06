@@ -4,6 +4,8 @@ import com.interest.model.sf.SfProduct;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface SfProductMapper {
@@ -18,4 +20,8 @@ public interface SfProductMapper {
     int updateByPrimaryKeySelective(SfProduct record);
 
     int updateByPrimaryKey(SfProduct record);
+
+    List<SfProduct> findAll();
+
+    Integer countTotal();
 }

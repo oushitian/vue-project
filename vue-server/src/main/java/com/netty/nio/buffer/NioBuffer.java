@@ -34,10 +34,22 @@ public class NioBuffer {
     public static void encode(String str){
         //申请buffer的空间
         CharBuffer charBuffer = CharBuffer.allocate(128);
+        charBuffer.append(str);
+        charBuffer.flip();
+
+        /*对获取utf8的编解码器*/
+        Charset utf8 = Charset.forName("UTF-8");
+        ByteBuffer byteBuffer = utf8.encode(charBuffer); /*对charbuffer中的内容解码*/
+
+        /*array()返回的就是内部的数组引用，编码以后的有效长度是0~limit*/
+        byte[] bytes = Arrays.copyOf(byteBuffer.array(), byteBuffer.limit());
+        System.out.println(Arrays.toString(bytes));
+
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {
         NioBuffer.decode("你好！");
+        NioBuffer.encode("你好!");
     }
 
 }
