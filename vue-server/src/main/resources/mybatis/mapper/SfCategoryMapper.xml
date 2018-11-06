@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.interest.dao.sf.SfCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.interest.model.sf.SfCategory" >
+    <id column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
+    <result column="process" property="process" jdbcType="TINYINT" />
+    <result column="categoryCode" property="categorycode" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="category_desc" property="categoryDesc" jdbcType="VARCHAR" />
+    <result column="rank_id" property="rankId" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="TINYINT" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="is_associate" property="isAssociate" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    category_id, is_recommend, process, categoryCode, category_name, parent_id, is_show,
+    category_desc, rank_id, enable, sort_order, is_associate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from sf_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sf_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.interest.model.sf.SfCategory" >
+    insert into sf_category (category_id, is_recommend, process,
+      categoryCode, category_name, parent_id,
+      is_show, category_desc, rank_id,
+      enable, sort_order, is_associate
+      )
+    values (#{categoryId,jdbcType=INTEGER}, #{isRecommend,jdbcType=TINYINT}, #{process,jdbcType=TINYINT},
+      #{categorycode,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
+      #{isShow,jdbcType=INTEGER}, #{categoryDesc,jdbcType=VARCHAR}, #{rankId,jdbcType=INTEGER},
+      #{enable,jdbcType=TINYINT}, #{sortOrder,jdbcType=INTEGER}, #{isAssociate,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.interest.model.sf.SfCategory" >
+    insert into sf_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+      <if test="process != null" >
+        process,
+      </if>
+      <if test="categorycode != null" >
+        categoryCode,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="categoryDesc != null" >
+        category_desc,
+      </if>
+      <if test="rankId != null" >
+        rank_id,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="sortOrder != null" >
+        sort_order,
+      </if>
+      <if test="isAssociate != null" >
+        is_associate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=TINYINT},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=TINYINT},
+      </if>
+      <if test="categorycode != null" >
+        #{categorycode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="categoryDesc != null" >
+        #{categoryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rankId != null" >
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="sortOrder != null" >
+        #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isAssociate != null" >
+        #{isAssociate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.interest.model.sf.SfCategory" >
+    update sf_category
+    <set >
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=TINYINT},
+      </if>
+      <if test="process != null" >
+        process = #{process,jdbcType=TINYINT},
+      </if>
+      <if test="categorycode != null" >
+        categoryCode = #{categorycode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="categoryDesc != null" >
+        category_desc = #{categoryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rankId != null" >
+        rank_id = #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="sortOrder != null" >
+        sort_order = #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isAssociate != null" >
+        is_associate = #{isAssociate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.interest.model.sf.SfCategory" >
+    update sf_category
+    set is_recommend = #{isRecommend,jdbcType=TINYINT},
+      process = #{process,jdbcType=TINYINT},
+      categoryCode = #{categorycode,jdbcType=VARCHAR},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=INTEGER},
+      category_desc = #{categoryDesc,jdbcType=VARCHAR},
+      rank_id = #{rankId,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=TINYINT},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
+      is_associate = #{isAssociate,jdbcType=TINYINT}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+</mapper>
