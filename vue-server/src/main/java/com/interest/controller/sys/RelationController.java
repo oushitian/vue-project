@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import com.interest.model.RelationEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.interest.service.RelationService;
 
 @RestController
+@Slf4j
 public class RelationController {
-
-	private Logger log = LoggerFactory.getLogger(RelationController.class);
 
 	@Resource(name = "relationServiceImpl")
 	private RelationService relationService;

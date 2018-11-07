@@ -8,6 +8,7 @@ import com.interest.model.MenuEntity;
 import com.interest.page.PageResult;
 import com.interest.model.UserEntity;
 import com.interest.utils.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,8 @@ import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
 
 @RestController
+@Slf4j
 public class MenuController {
-
-	private Logger log = LoggerFactory.getLogger(MenuController.class);
 
 	@Resource(name = "menuServiceImpl")
 	private MenuService menuService;

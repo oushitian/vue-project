@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import com.interest.page.PageResult;
 import com.interest.model.RoleEntity;
 import com.interest.utils.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,9 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.interest.service.RoleService;
 
 @RestController
+@Slf4j
 public class RoleController {
-
-	private Logger log = LoggerFactory.getLogger(RoleController.class);
 
 	@Resource(name = "roleServiceImpl")
 	private RoleService roleService;

@@ -8,6 +8,7 @@ import com.interest.page.PageResult;
 import com.interest.model.UserEntity;
 import com.interest.utils.DateUtil;
 import com.interest.utils.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +22,9 @@ import com.interest.service.UserService;
 import com.interest.utils.SecurityAuthenUtil;
 
 @RestController
+@Slf4j
 /*@PreAuthorize("hasRole('ADMI')")*/
 public class UserController {
-
-	private Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
