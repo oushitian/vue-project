@@ -48,7 +48,7 @@ public class WhSpringBootApplicationTests {
 
 	String clientId = "G034E1L8XW";
 	String clientSecret = "72b8b1799af8e8c3edd12e51525cefde5627d419";
-	String accessToken = "59acbdd8-6b5e-4ef6-b7fb-1b1b9a11d748";
+	String accessToken = "b0565eaf-28e3-4497-ba1d-fa2dc15e6f6b";
 
 	@Test
 	//获取access_token
