@@ -22,7 +22,12 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
          'window.Quill': 'quill'
-      })
+      }),
+        // new webpack.optimize.CommonsChunkPlugin('common.js'),
+        new webpack.ProvidePlugin({
+            jQuery:"jquery",
+            $:"jquery"
+        })
     ],
     module: {
         rules: [{

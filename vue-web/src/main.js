@@ -7,6 +7,7 @@ import axios from './axios';
 import VueAxios from 'vue-axios';
 import store from './store/store';
 import VueQuillEditor from 'vue-quill-editor';
+import $ from 'jquery';
 //dev--------------------------------
 // import 'iview/dist/styles/iview.css';
 // import 'quill/dist/quill.core.css';

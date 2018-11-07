@@ -10,6 +10,16 @@
         </div>
         <div>
             <ul>
+                <!--<li>-->
+                    <!--<Button type="primary" icon="plus-round" @click="openNewModal()">新建</Button>-->
+                    <!--<Button type="success" icon="wrench" @click="openModifyModal()">修改</Button>-->
+                    <!--<Button type="error" icon="trash-a" @click="del()">删除</Button>-->
+                <!--</li>-->
+                <li>
+                    <div style="padding: 10px 0;">
+                        <Table border :columns="columns1" :data="data1" :height="400" @on-selection-change="s=>{change(s)}" @on-row-dblclick="s=>{dblclick(s)}"></Table>
+                    </div>
+                </li>
                 <li>
                     <div style="text-align: right;">
                         <Page :total="total" :page-size="pageInfo.pageSize" show-elevator show-total @on-change="e=>{pageSearch(e)}"></Page>
@@ -19,7 +29,6 @@
         </div>
     </div>
 </template>
-<script type="text/javascript" src="../../resources/jquery-1.8.3.js"></script>
 <script>
     export default {
         data(){
@@ -27,77 +36,78 @@
                 /*用于查找的商品编号*/
                 goodsNumber:null,
                 /*分页total属性绑定值*/
-                total:1,
+                total:0,
                 /*loading*/
                 loading: true,
                 /*pageInfo实体*/
                 pageInfo:{
-                    page:1,
-                    pageSize:1
+                    page:0,
+                    pageSize:10
                 },
-                /*user实体*/
-                user:{
+                /*product实体*/
+                product:{
                     id:null,
-                    goodsNumber:null,
-                    goodsName:null
+                    number:null,
+                    name:null
                 },
                 columns1: [
                     {
                         title: '商品编号',
-                        key: 'goodsNumber'
+                        key: 'number'
                     },
                     {
                         title: '商品名称',
-                        key: 'goodsName'
+                        key: 'name'
                     }
                 ],
-                data:[],
-
+                data1:[],
             }
         },
         mounted(){
             /*页面初始化调用方法*/
             this.getTable({
                 "pageInfo":this.pageInfo,
-                "goodsNumber":this.goodsNumber
+                "loginName":this.loginName
             });
-            // this.axios({
-            //     method: 'post',
-            //     url: 'https://testapi.sfbest.com/open-api/open/product/getProductList?app_key=G034E1L8XW&access_token=6c568c57-58d9-4d92-9912-f5894ec7f113'
-            // }).then(function (response) {
-            //     alert(response.data);
-            //     // this.data2Temp = response.data;
-            // }.bind(this)).catch(function (error) {
-            //     alert(error);
-            // });
         },
         methods:{
+            /*pageInfo实体初始化*/
+            initPageInfo(){
+                this.pageInfo.page = 0;
+                this.pageInfo.pageSize = 10;
+            },
             /*得到表数据*/
             getTable(e) {
                 this.axios({
-                    method: 'post',
-                    url: 'https://testapi.sfbest.com/open-api/open/product/getProductList?app_key=G034E1L8XW&access_token=6c568c57-58d9-4d92-9912-f5894ec7f113',
+                    method: 'get',
+                    url: '/product/all',
                     params: {
                         'page':e.pageInfo.page,
                         'pageSize':e.pageInfo.pageSize,
-                        'number':e.goodsNumber
+                        'number':e.number
                     }
                 }).then(function (response) {
-                    alert(response.data);
-                    // this.data1=response.data.data;
-                    // this.listDateSet(this.data1);
-                    // this.total=response.data.totalCount;
+                    this.data1=response.data.data;
+                    this.total=response.data.totalCount;
                 }.bind(this)).catch(function (error) {
                     alert(error);
                 });
-                // var jsonObject = {
-                //             'page':e.pageInfo.page,
-                //             'pageSize':e.pageInfo.pageSize,
-                //             'number':e.goodsNumber
-                //         }
-                // $.getJSON("http://wavky.com/api/helloWorld?jsoncallback=?",jsonObject, function(data){
-                //     alert(data);
-                // })
+            },
+            /*搜索按钮点击事件*/
+            search(){
+                this.initPageInfo();
+                this.getTable({
+                    "pageInfo":this.pageInfo,
+                    "loginName":this.loginName
+                });
+            },
+            /*分页点击事件*/
+            pageSearch(e){
+                this.pageInfo.page = e-1;
+                this.getTable({
+                    "pageInfo":this.pageInfo,
+                    "loginName":this.loginName
+                });
             }
         }
     }
