@@ -10,14 +10,9 @@
         </div>
         <div>
             <ul>
-                <!--<li>-->
-                    <!--<Button type="primary" icon="plus-round" @click="openNewModal()">新建</Button>-->
-                    <!--<Button type="success" icon="wrench" @click="openModifyModal()">修改</Button>-->
-                    <!--<Button type="error" icon="trash-a" @click="del()">删除</Button>-->
-                <!--</li>-->
                 <li>
                     <div style="padding: 10px 0;">
-                        <Table border :columns="columns1" :data="data1" :height="400" @on-selection-change="s=>{change(s)}" @on-row-dblclick="s=>{dblclick(s)}"></Table>
+                        <Table border :columns="columns1" :data="data1" :height="600" @on-selection-change="s=>{change(s)}" @on-row-dblclick="s=>{dblclick(s)}"></Table>
                     </div>
                 </li>
                 <li>
@@ -58,6 +53,57 @@
                     {
                         title: '商品名称',
                         key: 'name'
+                    },
+                    {
+                        title:'国条码',
+                        key:'barCode'
+                    },
+                    {
+                        title:'分类一',
+                        key:'categoryOneName'
+                    },
+                    {
+                        title:'分类二',
+                        key:'categoryTwoName'
+                    },
+                    {
+                        title:'分类三',
+                        key:'categoryThreeName'
+                    },
+                    {
+                        title:'优选价',
+                        key:'price',
+                        render: (h,params) => {
+                            return h('div',params.row.price/100);
+                        }
+                    },
+                    {
+                        title:'原价',
+                        key:'costPrice',
+                        render: (h,params) => {
+                            return h('div',params.row.costPrice/100);
+                        }
+                    },
+                    {
+                        title: '操作',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.show(params.row);
+                                        }
+                                    }
+                                }, '显示订单详情')
+                            ]);
+                        }
                     }
                 ],
                 data1:[],
@@ -108,6 +154,9 @@
                     "pageInfo":this.pageInfo,
                     "loginName":this.loginName
                 });
+            },
+            show(row){
+                alert(row.productId);
             }
         }
     }
