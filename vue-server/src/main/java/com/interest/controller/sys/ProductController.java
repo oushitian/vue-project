@@ -2,13 +2,16 @@ package com.interest.controller.sys;
 
 import com.interest.model.sf.SfProduct;
 import com.interest.model.sf.SfProductDetails;
+import com.interest.model.view.ProductModel;
 import com.interest.page.PageResult;
 import com.interest.service.ProductDetailsService;
 import com.interest.service.ProductService;
 import com.interest.utils.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,6 +22,7 @@ import java.util.List;
  * @Desc 写点注释吧
  **/
 @RestController
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -34,5 +38,12 @@ public class ProductController {
     @GetMapping("/product/getProductDetails/{productId}")
     public List<SfProductDetails> getProductDetails(@PathVariable("productId") Integer  productId){
         return productDetailsService.getProductDetailsByProductId(productId);
+    }
+
+    @GetMapping("/product/edit")
+    public ProductModel editProduct(@RequestBody ProductModel productModel){
+        productService.editProduct(productModel);
+        log.info("edit finish..");
+        return productModel;
     }
 }

@@ -2,6 +2,7 @@ package com.interest.service.impl;
 
 import com.interest.dao.sf.SfProductMapper;
 import com.interest.model.sf.SfProduct;
+import com.interest.model.view.ProductModel;
 import com.interest.page.PageQuery;
 import com.interest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<SfProduct> getProductAll(String number) {
         return sfProductMapper.findAll(number);
+    }
+
+    @Override
+    public void editProduct(ProductModel productModel) {
+        SfProduct sfProduct = sfProductMapper.selectByPrimaryKey(productModel.getId());
+        sfProduct.setSalePrice(productModel.getSalePrice());
+        sfProductMapper.updateByPrimaryKey(sfProduct);
     }
 }

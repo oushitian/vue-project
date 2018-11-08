@@ -1,6 +1,7 @@
 package com.interest.service;
 
 import com.interest.model.sf.SfProduct;
+import com.interest.model.view.ProductModel;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  **/
 public interface ProductService {
     List<SfProduct> getProductAll(String number);
+
+    void editProduct(ProductModel productModel);
 }

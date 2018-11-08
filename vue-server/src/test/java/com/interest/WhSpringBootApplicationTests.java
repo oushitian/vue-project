@@ -48,7 +48,7 @@ public class WhSpringBootApplicationTests {
 
 	String clientId = "G034E1L8XW";
 	String clientSecret = "72b8b1799af8e8c3edd12e51525cefde5627d419";
-	String accessToken = "b0565eaf-28e3-4497-ba1d-fa2dc15e6f6b";
+	String accessToken = "9dc18248-ac3e-401e-a00f-9db16c0e7bd1";
 
 	@Test
 	//获取access_token
@@ -69,7 +69,7 @@ public class WhSpringBootApplicationTests {
 		JSONObject jsonObject = JSON.parseObject(result);
 		Integer totalCount = jsonObject.getJSONObject("data").getInteger("totalCount");
 		Integer count = totalCount/10+1;
-		for (int i = 1193 ; i < count ; i ++) {
+		for (int i = 1420 ; i < count ; i ++) {
             PageDO page = new PageDO();
             page.setPage(i+1+"");
             page.setPageSize("10");
@@ -94,6 +94,7 @@ public class WhSpringBootApplicationTests {
                 JSONObject sf = o.getJSONObject("sfshipping");
                 //插入商品
                 SfProduct sfProduct = JSON.parseObject(o1.toJSONString(),SfProduct.class);
+                sfProduct.setSalePrice(o1.getInteger("price") == null ? 0 : o1.getInteger("price"));
                 sfProduct.setCostPrice(o.getInteger("costPrice"));
                 sfProduct.setCategoryOneName(c1.getString("categoryName") == null ? StringUtils.EMPTY : c1.getString("categoryName"));
                 sfProduct.setCategoryOneCode(c1.getString("categoryCode") == null ? StringUtils.EMPTY : c1.getString("categoryCode"));

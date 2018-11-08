@@ -24,6 +24,7 @@
     <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
     <result column="brand_english_name" property="brandEnglishName" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="sale_price" property="salePrice" jdbcType="INTEGER" />
     <result column="shelf_life" property="shelfLife" jdbcType="INTEGER" />
     <result column="shelve_date" property="shelveDate" jdbcType="TIMESTAMP" />
     <result column="product_area" property="productArea" jdbcType="INTEGER" />
@@ -53,7 +54,7 @@
     product_id, number, name, english_name, purchase_name, system_name, bar_code, category_one, 
     category_one_name, category_one_code, category_two, category_two_name, category_two_code, 
     category_three, category_three_name, category_three_code, parent_id, parent_number, 
-    brand_id, brand_name, brand_english_name, price, shelf_life, shelve_date, product_area, 
+    brand_id, brand_name, brand_english_name, price, sale_price, shelf_life, shelve_date, product_area,
     country, sale_unit, specification, weight, model, status, is_show, box_specification, 
     audit_time, price_type, product_type, business_model, is_sell, merchant_number, cost_price, 
     sfshipping, sfairline, tax, in_tax, out_tax, filename
@@ -76,7 +77,7 @@
       category_two_code, category_three, category_three_name, 
       category_three_code, parent_id, parent_number, 
       brand_id, brand_name, brand_english_name, 
-      price, shelf_life, shelve_date, 
+      price,sale_price, shelf_life, shelve_date,
       product_area, country, sale_unit, 
       specification, weight, model, 
       status, is_show, box_specification, 
@@ -92,7 +93,7 @@
       #{categoryTwoCode,jdbcType=VARCHAR}, #{categoryThree,jdbcType=INTEGER}, #{categoryThreeName,jdbcType=VARCHAR}, 
       #{categoryThreeCode,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{parentNumber,jdbcType=INTEGER}, 
       #{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{brandEnglishName,jdbcType=VARCHAR}, 
-      #{price,jdbcType=INTEGER}, #{shelfLife,jdbcType=INTEGER}, #{shelveDate,jdbcType=TIMESTAMP}, 
+      #{price,jdbcType=INTEGER},#{salePrice,jdbcType=INTEGER}, #{shelfLife,jdbcType=INTEGER}, #{shelveDate,jdbcType=TIMESTAMP},
       #{productArea,jdbcType=INTEGER}, #{country,jdbcType=INTEGER}, #{saleUnit,jdbcType=VARCHAR}, 
       #{specification,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{isShow,jdbcType=INTEGER}, #{boxSpecification,jdbcType=VARCHAR}, 
@@ -170,6 +171,9 @@
       </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
       </if>
       <if test="shelfLife != null" >
         shelf_life,
@@ -311,6 +315,9 @@
       <if test="price != null" >
         #{price,jdbcType=INTEGER},
       </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=INTEGER},
+      </if>
       <if test="shelfLife != null" >
         #{shelfLife,jdbcType=INTEGER},
       </if>
@@ -451,6 +458,9 @@
       <if test="price != null" >
         price = #{price,jdbcType=INTEGER},
       </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=INTEGER},
+      </if>
       <if test="shelfLife != null" >
         shelf_life = #{shelfLife,jdbcType=INTEGER},
       </if>
@@ -549,6 +559,7 @@
       brand_name = #{brandName,jdbcType=VARCHAR},
       brand_english_name = #{brandEnglishName,jdbcType=VARCHAR},
       price = #{price,jdbcType=INTEGER},
+      sale_price = #{salePrice,jdbcType=INTEGER},
       shelf_life = #{shelfLife,jdbcType=INTEGER},
       shelve_date = #{shelveDate,jdbcType=TIMESTAMP},
       product_area = #{productArea,jdbcType=INTEGER},

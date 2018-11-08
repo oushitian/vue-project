@@ -47,6 +47,8 @@ public class SfProduct {
 
     private Integer price;
 
+    private Integer salePrice;
+
     private Integer shelfLife;
 
     private Date shelveDate;
@@ -461,5 +463,13 @@ public class SfProduct {
 
     public void setFilename(String filename) {
         this.filename = filename == null ? null : filename.trim();
+    }
+
+    public Integer getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Integer salePrice) {
+        this.salePrice = salePrice;
     }
 }
