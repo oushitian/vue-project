@@ -255,10 +255,9 @@
                         "salePrice": this.productModify.salePrice*100
                     }
                 }).then(function (response) {
-                    this.initUserNew();
                     this.getTable({
                         "pageInfo":this.pageInfo,
-                        "loginName":this.loginName
+                        "goodsNumber":this.goodsNumber
                     });
                     this.$Message.info('修改成功');
                 }.bind(this)).catch(function (error) {
