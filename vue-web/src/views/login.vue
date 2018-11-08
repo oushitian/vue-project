@@ -11,7 +11,7 @@
         left: 0;
         text-align: center;
         /*background: rebeccapurple;*/
-        background-image: url(../images/login.jpg);
+        background-image: url(../images/login1.jpg);
     }
     .index .ivu-row-flex {
         height: 100%;

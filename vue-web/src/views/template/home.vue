@@ -4,44 +4,44 @@
             <Carousel autoplay v-model="value2" loop >
                 <CarouselItem v-for="(item,index) in bannerList" :key="index">
                     <router-link :to="('/page/detail/'+item.id)">
-                        <img :style="{height:'550px'}" class="images-con" v-bind:src="(item.image)">
+                        <img :style="{height:'750px'}" class="images-con" v-bind:src="(item.image)">
                     </router-link>
                 </CarouselItem>
             </Carousel>
         </div>
-        <div v-if="flage" style="background: #f5f7f9;padding: 24px 50px;color: #495060;font-size: 14px;text-align: center;">
-            <span>未找到符合条件的结果</span>
-        </div>
-        <div class="box-flex flex-direction-column margin-top-2">
-            <div class="box-flex width-80 margin-auto" v-for="(A,index) in homeArticle">
-               <div class="box-flex width-100" v-if="index%2==0"> 
-                <div class="flex-1">
-                    <router-link :to="('/page/detail/'+A.id)">
-                        <img class="images-con imgpic" v-bind:src="(A.image)" >
-                    </router-link>
-                </div>
-                <div class="box-flex flex-1 padding-all flex-direction-column">
-                    <router-link :to="('/page/detail/'+A.id)">
-                        <span class="tirtleFont lineThrou">{{A.title}}</span>
-                    </router-link>
-                    <span class="contentFont">{{A.info}}</span>
-                </div>
-               </div>
-               <div class="box-flex width-100" v-else> 
-                <div class="box-flex flex-1 padding-all flex-direction-column">
-                    <router-link :to="('/page/detail/'+A.id)">
-                      <span class="tirtleFont lineThrou">{{A.title}}</span>
-                    </router-link>
-                    <span class="contentFont">{{A.info}}</span>
-                </div>
-                <div class="flex-1">
-                    <router-link :to="('/page/detail/'+A.id)">
-                        <img class="images-con imgpic" v-bind:src="(A.image)" >
-                    </router-link>
-                </div>
-               </div>
-            </div>
-        </div>
+        <!--<div v-if="flage" style="background: #f5f7f9;padding: 24px 50px;color: #495060;font-size: 14px;text-align: center;">-->
+            <!--<span>未找到符合条件的结果</span>-->
+        <!--</div>-->
+        <!--<div class="box-flex flex-direction-column margin-top-2">-->
+            <!--<div class="box-flex width-80 margin-auto" v-for="(A,index) in homeArticle">-->
+               <!--<div class="box-flex width-100" v-if="index%2==0"> -->
+                <!--<div class="flex-1">-->
+                    <!--<router-link :to="('/page/detail/'+A.id)">-->
+                        <!--<img class="images-con imgpic" v-bind:src="(A.image)" >-->
+                    <!--</router-link>-->
+                <!--</div>-->
+                <!--<div class="box-flex flex-1 padding-all flex-direction-column">-->
+                    <!--<router-link :to="('/page/detail/'+A.id)">-->
+                        <!--<span class="tirtleFont lineThrou">{{A.title}}</span>-->
+                    <!--</router-link>-->
+                    <!--<span class="contentFont">{{A.info}}</span>-->
+                <!--</div>-->
+               <!--</div>-->
+               <!--<div class="box-flex width-100" v-else> -->
+                <!--<div class="box-flex flex-1 padding-all flex-direction-column">-->
+                    <!--<router-link :to="('/page/detail/'+A.id)">-->
+                      <!--<span class="tirtleFont lineThrou">{{A.title}}</span>-->
+                    <!--</router-link>-->
+                    <!--<span class="contentFont">{{A.info}}</span>-->
+                <!--</div>-->
+                <!--<div class="flex-1">-->
+                    <!--<router-link :to="('/page/detail/'+A.id)">-->
+                        <!--<img class="images-con imgpic" v-bind:src="(A.image)" >-->
+                    <!--</router-link>-->
+                <!--</div>-->
+               <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
     </div>
 </template>

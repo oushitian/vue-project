@@ -42,7 +42,7 @@
                             </a>
                         </div>
                         <div class="layout-search">
-                            <Input v-model="searchValue" icon="android-search" placeholder="Enter something..." @on-enter="search()"/>
+                            <Input v-model="searchValue" icon="android-search" placeholder="Please Enter..." @on-enter="search()"/>
                         </div>
                         <div v-if="loginFlag" class="layout-nav">
                             <MenuItem name="1">
