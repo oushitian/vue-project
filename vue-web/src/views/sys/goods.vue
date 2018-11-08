@@ -22,11 +22,23 @@
                 </li>
             </ul>
         </div>
-        <!--配置角色modal-->
+        <!--查看详情modal-->
         <Modal v-model="detailModal" width="1000" title="商品详情" @on-cancel="cancel()">
             <div>
                 <Table border :columns="columns2" :data="data2" :height="450"></Table>
             </div>
+        </Modal>
+        <!--修改modal-->
+        <Modal :mask-closable="false" :visible.sync="modifyModal" v-model="modifyModal" width="600" title="修改" @on-ok="modifyOk()" @on-cancel="cancel()">
+            <Form :label-width="80" >
+                <Row>
+                    <Col span="12">
+                        <Form-item label="实际价格:">
+                            <Input v-model="productModify.salePrice" style="width: 204px"/>
+                        </Form-item>
+                    </Col>
+                </Row>
+            </Form>
         </Modal>
     </div>
 </template>
@@ -42,10 +54,17 @@
                 total:0,
                 /*loading*/
                 loading: true,
+                /*修改modal的显示参数*/
+                modifyModal:false,
                 /*pageInfo实体*/
                 pageInfo:{
                     page:0,
                     pageSize:10
+                },
+                /*用于修改的product实体*/
+                productModify:{
+                    id:null,
+                    salePrice:null
                 },
                 /*product实体*/
                 product:{
@@ -86,6 +105,13 @@
                         }
                     },
                     {
+                        title:'实际售价',
+                        key:'salePrice',
+                        render: (h,params) => {
+                            return h('div',params.row.salePrice/100);
+                        }
+                    },
+                    {
                         title:'原价',
                         key:'costPrice',
                         render: (h,params) => {
@@ -104,12 +130,26 @@
                                         type: 'primary',
                                         size: 'small'
                                     },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.edit(params.row);
+                                        }
+                                    }
+                                }, '编辑'),
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
                                     on: {
                                         click: () => {
                                             this.show(params.row);
                                         }
                                     }
-                                }, '显示订单详情')
+                                }, '商品详情')
                             ]);
                         }
                     }
@@ -186,6 +226,11 @@
                     "goodsNumber":this.goodsNumber
                 });
             },
+            edit(row){
+                this.modifyModal = true;
+                this.productModify.id = row.productId;
+                this.productModify.salePrice = row.salePrice/100;
+            },
             show(row){
                 this.detailModal = true;
                 this.axios({
@@ -200,6 +245,26 @@
             /*modal的cancel点击事件*/
             cancel () {
                 this.$Message.info('点击了取消');
+            },
+            modifyOk () {
+                this.axios({
+                    method: 'put',
+                    url: '/product/edit',
+                    data: {
+                        "id": this.productModify.id,
+                        "salePrice": this.productModify.salePrice*100
+                    }
+                }).then(function (response) {
+                    this.initUserNew();
+                    this.getTable({
+                        "pageInfo":this.pageInfo,
+                        "loginName":this.loginName
+                    });
+                    this.$Message.info('修改成功');
+                }.bind(this)).catch(function (error) {
+                    alert(error);
+                });
+                this.modifyModal = false;
             }
         }
     }
