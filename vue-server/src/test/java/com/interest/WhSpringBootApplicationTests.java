@@ -138,7 +138,7 @@ public class WhSpringBootApplicationTests {
 	    Integer total = sfProductMapper.countTotal();
 	    for (int i = 0 ; i < total/10+1 ; i ++) {
             PageHelper.startPage(i + 1, 10);
-            List<SfProduct> lists = sfProductMapper.findAll();
+            List<SfProduct> lists = sfProductMapper.findAll(null);
             Set<String> list = new HashSet<>();
             for (SfProduct sfProduct : lists) {
                 list.add(sfProduct.getNumber());

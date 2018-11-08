@@ -576,10 +576,15 @@
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
 
-  <select id="findAll" resultMap="BaseResultMap">
+  <select id="findAll" parameterType="STRING" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sf_product
+    <where>
+      <if test="number != null and number != ''">
+        number = #{number}
+      </if>
+    </where>
   </select>
 
   <select id="countTotal" resultType="INTEGER">

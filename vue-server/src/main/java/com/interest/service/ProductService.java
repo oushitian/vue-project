@@ -10,5 +10,5 @@ import java.util.List;
  * @Desc 写点注释吧
  **/
 public interface ProductService {
-    List<SfProduct> getProductAll();
+    List<SfProduct> getProductAll(String number);
 }

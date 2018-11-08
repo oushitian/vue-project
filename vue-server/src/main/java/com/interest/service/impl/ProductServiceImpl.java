@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
     @PageQuery
     @Override
-    public List<SfProduct> getProductAll() {
-        return sfProductMapper.findAll();
+    public List<SfProduct> getProductAll(String number) {
+        return sfProductMapper.findAll(number);
     }
 }

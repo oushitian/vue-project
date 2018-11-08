@@ -2,6 +2,7 @@ package com.interest.dao.sf;
 
 import com.interest.model.sf.SfProduct;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface SfProductMapper {
 
     int updateByPrimaryKey(SfProduct record);
 
-    List<SfProduct> findAll();
+    List<SfProduct> findAll(@Param("number") String number);
 
     Integer countTotal();
 }
