@@ -5,8 +5,10 @@ import java.util.List;
 import com.interest.model.MenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface MenuDao {
 
 	/**

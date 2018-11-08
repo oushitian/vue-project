@@ -116,4 +116,12 @@ public class MenuController {
 	public List<MenuEntity> getSubmenus() {
 		return menuService.getSubmenus();
 	}
+
+	/**
+	 * 导出所有菜单
+	 */
+	@GetMapping("/menus/export")
+	public List<MenuEntity> exportAll(){
+		return menuService.getMenusAll();
+	}
 }

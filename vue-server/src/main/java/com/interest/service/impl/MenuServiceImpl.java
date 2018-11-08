@@ -82,4 +82,10 @@ public class MenuServiceImpl implements MenuService {
 		return menuDao.getSubmenus();
 	}
 
+	@Override
+	public List<MenuEntity> getMenusAll() {
+		return menuDao.menusList(null);
+	}
+
+
 }

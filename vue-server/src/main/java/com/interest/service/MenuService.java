@@ -60,4 +60,6 @@ public interface MenuService {
 	 */
 	List<MenuEntity> getSubmenus();
 
+    List<MenuEntity> getMenusAll();
+
 }
