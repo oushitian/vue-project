@@ -22,6 +22,12 @@
                 </li>
             </ul>
         </div>
+        <!--配置角色modal-->
+        <Modal v-model="detailModal" width="1000" title="商品详情" @on-cancel="cancel()">
+            <div>
+                <Table border :columns="columns2" :data="data2" :height="450"></Table>
+            </div>
+        </Modal>
     </div>
 </template>
 <script>
@@ -30,6 +36,8 @@
             return {
                 /*用于查找的商品编号*/
                 goodsNumber:null,
+                /*角色配置modal的显示参数*/
+                detailModal:false,
                 /*分页total属性绑定值*/
                 total:0,
                 /*loading*/
@@ -107,13 +115,36 @@
                     }
                 ],
                 data1:[],
+                /*表显示字段*/
+                columns2: [
+                    {
+                        title: '标题',
+                        width: 120,
+                        key: 'title',
+                        align: 'center'
+                    },
+                    {
+                        title: '内容',
+                        key: 'content',
+                        align: 'center',
+                        render: (h,params) => {
+                            return h('span',{
+                                domProps:{
+                                    innerHTML:params.row.content
+                                }
+                            });
+                        }
+                    }
+                ],
+                /*表数据*/
+                data2:[]
             }
         },
         mounted(){
             /*页面初始化调用方法*/
             this.getTable({
                 "pageInfo":this.pageInfo,
-                "loginName":this.loginName
+                "goodsNumber":this.goodsNumber
             });
         },
         methods:{
@@ -130,7 +161,7 @@
                     params: {
                         'page':e.pageInfo.page,
                         'pageSize':e.pageInfo.pageSize,
-                        'number':e.number
+                        'number':e.goodsNumber
                     }
                 }).then(function (response) {
                     this.data1=response.data.data;
@@ -144,7 +175,7 @@
                 this.initPageInfo();
                 this.getTable({
                     "pageInfo":this.pageInfo,
-                    "loginName":this.loginName
+                    "goodsNumber":this.goodsNumber
                 });
             },
             /*分页点击事件*/
@@ -152,11 +183,23 @@
                 this.pageInfo.page = e-1;
                 this.getTable({
                     "pageInfo":this.pageInfo,
-                    "loginName":this.loginName
+                    "goodsNumber":this.goodsNumber
                 });
             },
             show(row){
-                alert(row.productId);
+                this.detailModal = true;
+                this.axios({
+                    method: 'get',
+                    url: '/product/getProductDetails/'+row.productId
+                }).then(function (response) {
+                    this.data2=response.data;
+                }.bind(this)).catch(function (error) {
+                    alert(error);
+                });
+            },
+            /*modal的cancel点击事件*/
+            cancel () {
+                this.$Message.info('点击了取消');
             }
         }
     }
