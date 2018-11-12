@@ -18,7 +18,7 @@ public class NioBuffer {
         //申请buffer的空间
         ByteBuffer byteBuffer = ByteBuffer.allocate(128);
         byteBuffer.put(str.getBytes("utf-8"));
-        //每次操作缓存完成都要执行该方法,把positin重新归0
+        //每次操作缓存完成都要执行该方法,把position重新归0
         byteBuffer.flip();
 
         //对字符串解码

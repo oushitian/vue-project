@@ -44,7 +44,7 @@ public class ServiceSocket {
 
                 //创建服务器通道
                 serverSocketChannel = ServerSocketChannel.open();
-                serverSocketChannel.configureBlocking(false);   //设置为非阻塞
+                serverSocketChannel.configureBlocking(false);   //设置为非阻塞(非阻塞模型下serverSocketChannel.accept()没有收到客户端连接会返回null)
 
                 /*设置监听服务器的端口，设置最大连接缓冲数为100*/
                 serverSocketChannel.bind(localSocketAddress, 100);
