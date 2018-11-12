@@ -28,7 +28,7 @@ public final class Client {
 
     public static void main(String[] args) throws InterruptedException, IOException {
         //客户端创建workerGroup
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup(1);
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(workerGroup)
