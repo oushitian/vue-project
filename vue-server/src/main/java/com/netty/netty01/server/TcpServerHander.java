@@ -22,7 +22,7 @@ public class TcpServerHander extends ChannelInboundHandlerAdapter {
         //接受收到的数据
         System.out.println("服务端接收到数据:"+msg);
         //写回数据给客户端
-        ctx.writeAndFlush("hello i am server");
+        ctx.writeAndFlush("hello i am server \r\n");
         ctx.close();
     }
 

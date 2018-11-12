@@ -33,7 +33,7 @@ public class NettyServer {
                     protected void initChannel(Channel channel) throws Exception {
                         //首先拿到channel中的pipeline(pipeline可以理解成管理handler集合的东西)
                         channel.pipeline()
-                                // 添加帧限定符来防⽌止粘包现象
+                                // 添加帧限定符来防⽌止粘包现象  结束要加\r\n
                                 .addLast(new DelimiterBasedFrameDecoder(8192,Delimiters.lineDelimiter()))
                                 .addLast(new StringDecoder(CharsetUtil.UTF_8))
                                 .addLast(new StringEncoder(CharsetUtil.UTF_8))
@@ -41,7 +41,7 @@ public class NettyServer {
                     }
                 });//绑定处理的handler类
         //绑定IP，端口(因为这是个耗时操作，必须同步等待，不然进程会结束)
-        ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(8888)).sync();
+        ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(10000)).sync();
 //        channelFuture.channel().closeFuture().sync();// 监听服务端关闭，并阻塞等待
 //        System.out.println("tcp服务启动成功。。。");
     }
