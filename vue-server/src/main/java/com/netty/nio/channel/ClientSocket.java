@@ -152,16 +152,16 @@ public class ClientSocket {
         Thread td = new Thread(new TCPClients("thread d", remoteAddress));
 
         ta.start();
-        tb.start();
-        tc.start();
-
-        Thread.sleep(5000);
-
-        /*结束客户端a*/
-        ta.interrupt();
-
-        /*开始客户端d*/
-        td.start();
+//        tb.start();
+//        tc.start();
+//
+//        Thread.sleep(5000);
+//
+//        /*结束客户端a*/
+//        ta.interrupt();
+//
+//        /*开始客户端d*/
+//        td.start();
 
 
     }

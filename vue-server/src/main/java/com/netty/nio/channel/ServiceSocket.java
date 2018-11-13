@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * @Author xyl
  * @Create 2018-11-06 16:52
- * @Desc 写点注释吧
+ * @Desc 一般来说服务端才有多路复用的概念
  **/
 public class ServiceSocket {
 
@@ -36,8 +36,6 @@ public class ServiceSocket {
             ServerSocketChannel serverSocketChannel = null;
             Selector selector = null;//选择器
 
-            Random rdn = new Random();
-
             try {
                 //创建选择器
                 selector = Selector.open();
@@ -49,7 +47,7 @@ public class ServiceSocket {
                 /*设置监听服务器的端口，设置最大连接缓冲数为100*/
                 serverSocketChannel.bind(localSocketAddress, 100);
 
-                //向选择器注册感兴趣的事件
+                //向选择器注册感兴趣的事件(selector绑定了一个serverSocketChannel)
                 serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT);
 
             } catch (IOException e) {
@@ -64,7 +62,7 @@ public class ServiceSocket {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
 
-                    int n = selector.select();  //选择器轮询
+                    int n = selector.select();  //选择器轮询(这里阻塞)  select()方法返回的值表示有多少个 Channel 可操作
                     if (n == 0) {
                         continue;
                     }
@@ -74,9 +72,10 @@ public class ServiceSocket {
                     SelectionKey key = null;
 
                     while(it.hasNext()){
-                        key = it.next();    //取到key
+                        key = it.next();    //取到SelectionKey，可以获取这个SelectionKey关联的Channel和selector
                         it.remove();        //取到后移除  防止重复处理
 
+                        //key.attach(new Object());     可以在SelectionKey中附加一个对象
                         /*若发现异常，说明客户端连接出现问题,但服务器要保持正常*/
                         try {
                             //检测是否已经可接受
@@ -88,7 +87,7 @@ public class ServiceSocket {
 
                                 /*向选择器注册这个通道和普通通道感兴趣的事件，同时提供这个新通道相关的缓冲区*/
                                 int interestSet = SelectionKey.OP_READ;
-                                sc.register(selector, interestSet, new Buffers(256, 256));
+                                sc.register(selector, interestSet, new Buffers(256, 256));//(selector绑定了一个socketChannel)
 
                                 System.out.println("accept from " + sc.getRemoteAddress());
                             }
