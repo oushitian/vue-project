@@ -1,6 +1,6 @@
 package com.netty.nio.channel;
 
-import com.constant.HttpConstant;
+import com.netty.constant.HttpConstant;
 import com.netty.util.HttpUtil;
 
 import java.io.IOException;

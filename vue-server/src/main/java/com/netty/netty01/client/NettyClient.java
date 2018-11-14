@@ -44,6 +44,7 @@ public class NettyClient implements Runnable{
                 });
             for (int i=0;i<10;i++){
                 ChannelFuture f = bootstrap.connect(new InetSocketAddress(10000)).sync();
+                f.addListener(null);
                 f.channel().writeAndFlush("hello service !" + Thread.currentThread().getName()+ ":---->"+i+"\r\n");
                 f.channel().closeFuture().sync();
             }

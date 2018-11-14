@@ -24,6 +24,7 @@ public class WebsecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().authenticated();
 		http.formLogin().failureUrl("/login?error").permitAll();
 		http.logout().permitAll();
+		http.authorizeRequests().antMatchers("/public/**").permitAll();
 		http.csrf().disable();
 	}
 

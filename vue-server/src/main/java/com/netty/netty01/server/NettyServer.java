@@ -19,8 +19,8 @@ import java.net.InetSocketAddress;
  **/
 public class NettyServer {
 
-    public static final EventLoopGroup bossGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors() * 2);   //设置CPU数*2
-    public static final EventLoopGroup workGroup = new NioEventLoopGroup(100); //根据实际场景设置合适的线程数
+    public static final EventLoopGroup bossGroup = new NioEventLoopGroup();
+    public static final EventLoopGroup workGroup = new NioEventLoopGroup(); //根据实际场景设置合适的线程数
 
     public static void start() throws InterruptedException {
         //创建启动netty服务端的帮助类
@@ -40,7 +40,7 @@ public class NettyServer {
                                 .addLast(new TcpServerHander());
                     }
                 });//绑定处理的handler类
-        //绑定IP，端口(因为这是个耗时操作，必须同步等待，不然进程会结束)
+        //绑定IP，端口(因为这是个耗时操作，必须同步等待，不然进程会结束,其实只需要一个sync()方法即可，只要保证服务端的进程不要挂掉就好)
         ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(10000)).sync();
 //        channelFuture.channel().closeFuture().sync();// 监听服务端关闭，并阻塞等待
 //        System.out.println("tcp服务启动成功。。。");
