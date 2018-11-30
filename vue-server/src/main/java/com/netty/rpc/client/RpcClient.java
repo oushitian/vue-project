@@ -7,6 +7,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.serialization.ClassResolvers;
@@ -41,7 +42,7 @@ public class RpcClient {
         EventLoopGroup workerGroup = new NioEventLoopGroup();   //客户端线程组复用，防止每次连接都新建线程组
         strap = new Bootstrap();
         strap.group(workerGroup)
-                .channel(SocketChannel.class)
+                .channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override

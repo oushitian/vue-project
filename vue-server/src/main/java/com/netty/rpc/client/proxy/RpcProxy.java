@@ -39,6 +39,6 @@ public class RpcProxy implements InvocationHandler {
         }
 
         RpcResponse rpcResponse = client.invoke(rpcRequest);
-        return rpcResponse;
+        return rpcResponse.getResult();
     }
 }

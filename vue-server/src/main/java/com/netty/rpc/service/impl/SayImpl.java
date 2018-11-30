@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @Create 2018-11-29 9:51
  * @Desc api的实现类
  **/
-@RpcServerAnno(SayImpl.class)
+@RpcServerAnno(ISay.class)
 @Service
 public class SayImpl implements ISay {
     @Override
