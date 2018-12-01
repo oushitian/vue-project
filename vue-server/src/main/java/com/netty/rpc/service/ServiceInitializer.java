@@ -1,12 +1,12 @@
 package com.netty.rpc.service;
 
-import com.netty.rpc.server.anno.RpcServerAnno;
 import com.netty.rpc.server.RpcServer;
+import com.netty.rpc.server.anno.RpcServerAnno;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,9 @@ import java.util.Map;
  **/
 @Component
 public class ServiceInitializer implements ApplicationContextAware {
+
+    @Autowired
+    RpcServer rpcServer;
 
     private static  ApplicationContext applicationContext;
 
@@ -42,7 +45,7 @@ public class ServiceInitializer implements ApplicationContextAware {
             serviceMap.put(className,entry.getValue());
         }
         if (!serviceMap.isEmpty()){ //不为空说明已经初始化完，就启动服务器
-            RpcServer.start0();
+            rpcServer.start0("localhost:8007");
         }
     }
 

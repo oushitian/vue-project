@@ -1,5 +1,6 @@
 package com.netty.rpc.server;
 
+import com.netty.rpc.register.ServiceCenter;
 import com.netty.rpc.server.handler.MyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -12,6 +13,7 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author xyl
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Desc Rpc的服务端，每个服务端定义一个线程
  **/
 @Slf4j
+@Component
 public class RpcServer{
 
     private static RpcServer server = new RpcServer();
@@ -26,14 +29,19 @@ public class RpcServer{
     private RpcServer() {
     }
 
+    private static String registerAddress;
+
     private static boolean isStarted = false;
 
-    private static int PORT = 8007;
+//    private static int PORT = 8007;
 
-    public static void start0(){
+    ServiceCenter serviceCenter = new ServiceCenter();
+
+    public void start0(String registerAddress){
         if (isStarted) {
             log.info("server has started...");
         }
+        this.registerAddress = registerAddress;
         server.startInit();
     }
 
@@ -63,7 +71,14 @@ public class RpcServer{
                                     .addLast(new MyServerHandler());
                         }
                     });
-            ChannelFuture future = strap.bind(PORT).sync();
+            String[] array = registerAddress.split(":");
+            String host = array[0];
+            int port = Integer.parseInt(array[1]);
+            ChannelFuture future = strap.bind(host, port).sync();
+            //注册到zk上
+            if (serviceCenter != null) {
+                serviceCenter.register("dubboServer",registerAddress); // 注册服务地址
+            }
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

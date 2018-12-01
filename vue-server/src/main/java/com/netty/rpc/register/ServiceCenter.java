@@ -1,10 +1,8 @@
 package com.netty.rpc.register;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.concurrent.CountDownLatch;
  * @Desc 注册中心，zk实现
  **/
 @Slf4j
+@Component
 public class ServiceCenter {
 
     private static final String APPS_PATH = "/apps";
@@ -26,9 +25,13 @@ public class ServiceCenter {
             return;
         }
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        String serverCenterAddress = "localhost";
+        String serverCenterAddress = "localhost:2181";
 
-        zk = new ZooKeeper(serverCenterAddress,30000,null);
+        zk = new ZooKeeper(serverCenterAddress, 30000, event -> {
+            if (event.getState() == Watcher.Event.KeeperState.SyncConnected) {
+                countDownLatch.countDown();
+            }
+        });
         countDownLatch.await();
 
         if (zk.exists(APPS_PATH, false) == null) {  //不存在根节点就创建
@@ -44,6 +47,7 @@ public class ServiceCenter {
                 zk.create(APPS_PATH + "/" + serviceName, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
             String path = zk.create(APPS_PATH + "/" + serviceName + "/", address.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);     //临时节点
+            log.info("create zookeeper node ({} => {})", path, address.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
