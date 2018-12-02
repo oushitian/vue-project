@@ -2,7 +2,6 @@ package com.interest;
 
 import com.netty.rpc.api.ISay;
 import com.netty.rpc.client.proxy.RpcProxy;
-import org.junit.Test;
 
 /**
  * @Author xyl
@@ -14,14 +13,14 @@ import org.junit.Test;
 //@SpringBootTest
 public class RpcTest {
 
-    @Test
-    public void test(){
-        ISay say = RpcProxy.getProxy(ISay.class);
-
-        for (int i = 0; i < 1; i++) {
-
-            String result = say.hello("luangeng" + i);
-            System.out.println(result);
+//    @Test
+//    public void test(){
+//        ISay say = RpcProxy.getProxy(ISay.class);
+//
+//        for (int i = 0; i < 1; i++) {
+//
+//            String result = say.hello("luangeng" + i);
+//            System.out.println(result);
 //            log.info("result: " + result);
 
 //            result = say.hello("你好，", "luangeng" + i);
@@ -37,8 +36,8 @@ public class RpcTest {
 //            Person p2 = say.test(p);
 //            log.info(p2.toString());
 //            log.info(" ");
-        }
-    }
+//        }
+//    }
 
     public static void main(String[] args) {
         ISay say = RpcProxy.getProxy(ISay.class);

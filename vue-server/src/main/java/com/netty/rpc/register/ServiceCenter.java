@@ -57,12 +57,13 @@ public class ServiceCenter {
         }
     }
 
-    public String getService(String serviceName) throws KeeperException, InterruptedException {
-        List<String> apps = zk.getChildren(APPS_PATH + serviceName,false);
+    public String getService(String serviceName) throws KeeperException, InterruptedException, IOException {
+        createConnect();
+        List<String> apps = zk.getChildren(APPS_PATH + "/"+serviceName,false);
         if (apps.isEmpty()) {
             return null;
         }
-        byte[] data = zk.getData(apps.get(0), false, null);
+        byte[] data = zk.getData(APPS_PATH + "/"+serviceName+"/"+apps.get(0), false, null);
         return new String(data);
     }
 

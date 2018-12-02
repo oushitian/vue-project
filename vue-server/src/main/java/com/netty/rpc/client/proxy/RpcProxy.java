@@ -1,6 +1,7 @@
 package com.netty.rpc.client.proxy;
 
 import com.netty.rpc.client.RpcClient;
+import com.netty.rpc.register.ServiceCenter;
 import com.netty.rpc.request.RpcRequest;
 import com.netty.rpc.response.RpcResponse;
 
@@ -18,6 +19,8 @@ public class RpcProxy implements InvocationHandler {
 
     private RpcClient client;
 
+    private ServiceCenter serviceCenter = new ServiceCenter();
+
     private static AtomicLong id = new AtomicLong(0);
 
     public static <T> T getProxy(Class<?> clazz){
@@ -34,8 +37,12 @@ public class RpcProxy implements InvocationHandler {
         rpcRequest.setParameterTypes(method.getParameterTypes());
         rpcRequest.setParameters(args);
 
+        String[] address = serviceCenter.getService("dubboServer").split(":");
+        String host = address[0];
+        int port = Integer.parseInt(address[1]);
+
         if (client == null) {
-            client = RpcClient.getConnect("localhost",8007);
+            client = RpcClient.getConnect(host,port);
         }
 
         RpcResponse rpcResponse = client.invoke(rpcRequest);
