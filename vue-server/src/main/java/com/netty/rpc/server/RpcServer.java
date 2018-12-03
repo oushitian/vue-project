@@ -13,6 +13,7 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,25 +25,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class RpcServer{
 
-    private static RpcServer server = new RpcServer();
-    //防止外部创建
-    private RpcServer() {
-    }
-
     private static String registerAddress;
 
     private static boolean isStarted = false;
 
 //    private static int PORT = 8007;
 
-    ServiceCenter serviceCenter = new ServiceCenter();
+    @Autowired
+    ServiceCenter serviceCenter;
 
     public void start0(String registerAddress){
         if (isStarted) {
             log.info("server has started...");
         }
         this.registerAddress = registerAddress;
-        server.startInit();
+        startInit();
     }
 
     public static void main(String[] args) {
