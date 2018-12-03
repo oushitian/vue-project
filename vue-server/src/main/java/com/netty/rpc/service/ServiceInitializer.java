@@ -1,10 +1,13 @@
 package com.netty.rpc.service;
 
+import com.netty.rpc.config.MyProperties;
 import com.netty.rpc.register.ServiceCenter;
 import com.netty.rpc.server.RpcServer;
 import com.netty.rpc.server.anno.RpcServerAnno;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -18,7 +21,11 @@ import java.util.Map;
  * @Desc spring启动完成后的初始化操作
  **/
 @Component
+@EnableConfigurationProperties(MyProperties.class)
 public class ServiceInitializer implements ApplicationContextAware {
+
+    @Autowired
+    private MyProperties myProperties;
 
     @Autowired
     RpcServer rpcServer;
@@ -46,7 +53,7 @@ public class ServiceInitializer implements ApplicationContextAware {
             serviceMap.put(className,entry.getValue());
         }
         if (!serviceMap.isEmpty()){ //不为空说明已经初始化完，就启动服务器
-            rpcServer.start0("localhost:8007");
+            rpcServer.start0(myProperties.getZkAddress());
         }
     }
 
