@@ -1,6 +1,10 @@
 package com.netty.rpc.server;
 
+import com.netty.rpc.codec.RpcDecoder;
+import com.netty.rpc.codec.RpcEncoder;
 import com.netty.rpc.register.ServiceCenter;
+import com.netty.rpc.request.RpcRequest;
+import com.netty.rpc.response.RpcResponse;
 import com.netty.rpc.server.handler.MyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -61,10 +65,12 @@ public class RpcServer{
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4, 0, 4))  //防止粘包问题
-                                    .addLast(new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())))
-                                    .addLast(new LengthFieldPrepender(4))
-                                    .addLast(new ObjectEncoder())
+//                            pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4, 0, 4))  //防止粘包问题
+//                                    .addLast(new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())))
+//                                    .addLast(new LengthFieldPrepender(4))
+//                                    .addLast(new ObjectEncoder())
+                            pipeline.addLast(new RpcDecoder(RpcRequest.class))
+                                    .addLast(new RpcEncoder(RpcResponse.class))
                                     .addLast(new MyServerHandler());
                         }
                     });

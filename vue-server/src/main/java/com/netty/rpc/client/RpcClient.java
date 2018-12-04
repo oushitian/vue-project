@@ -1,6 +1,8 @@
 package com.netty.rpc.client;
 
 import com.netty.rpc.client.handler.MyClientHandler;
+import com.netty.rpc.codec.RpcDecoder;
+import com.netty.rpc.codec.RpcEncoder;
 import com.netty.rpc.request.RpcRequest;
 import com.netty.rpc.response.RpcResponse;
 import io.netty.bootstrap.Bootstrap;
@@ -48,11 +50,13 @@ public class RpcClient {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4, 0, 4));
-                        pipeline.addLast(new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())));
-                        pipeline.addLast(new LengthFieldPrepender(4));
-                        pipeline.addLast(new ObjectEncoder());
-                        pipeline.addLast(new MyClientHandler());
+//                        pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4, 0, 4));
+//                        pipeline.addLast(new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())));
+//                        pipeline.addLast(new LengthFieldPrepender(4));
+//                        pipeline.addLast(new ObjectEncoder());
+                        pipeline.addLast(new RpcEncoder(RpcRequest.class)) // 将 RPC 请求进行编码（为了发送请求）
+                                .addLast(new RpcDecoder(RpcResponse.class)) // 将 RPC 响应进行解码（为了处理响应）
+                                .addLast(new MyClientHandler());
                     }
                 });
     }

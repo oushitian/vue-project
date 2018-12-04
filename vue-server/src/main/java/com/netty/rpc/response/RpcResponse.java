@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Create 2018-11-28 16:03
  * @Desc 封装调用方法返回的结果或异常；Id为对应Request的Id，一一对应
  **/
-public class RpcResponse implements Serializable {
+public class RpcResponse{
 
     private Long id;
     private Exception exception;
